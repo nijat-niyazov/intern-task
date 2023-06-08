@@ -1,33 +1,53 @@
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
-import SubmitButton from '../../components/form/buttons/Submit';
-// import Text from '../../components/form/fields/input/Input';
-import Select from '../../components/form/fields/select/Select';
-import FirstSection from '../../components/form/sections/FirstSection';
-import { initialData } from '../../data/form/data';
-import useFetchData from '../../hooks/useFetchData';
+import { useFetchData } from '../../hooks/form';
+
+import Button from '../../components/form/form/buttons';
+import Input from '../../components/form/form/fields/input';
+import Select from '../../components/form/form/fields/select';
+
+import FieldShape from '../../components/form/form/fields/shape';
+import { FirstSection, LastSection } from '../../components/form/form/sections';
+import { initialData } from '../../data/form/initialData';
+import { CountriesData } from '../../interfaces/form';
 import { images } from '../../utils/images';
-import Input from '../../components/form/fields/input/Input';
 
 const Form = () => {
   const [formData, setFormdata] = useState(initialData);
-  const [activeData, setActiveData] = useState(null);
+  const [activeData, setActiveData] = useState({});
+  const [activePhone, setActivePhone] = useState({});
   const { countries, cookie } = useFetchData();
 
+  console.log(countries);
+
   useEffect(() => {
-    setActiveData(countries.find(c => c.country_name === cookie?.country_name));
+    setActiveData(
+      countries.find(
+        (c: CountriesData) => c.country_name === cookie?.country_name
+      )
+    );
+    setActivePhone(
+      countries.find(
+        (c: CountriesData) => c.country_name === cookie?.country_name
+      )
+    );
   }, [cookie]);
 
   // ============== Handle Functions =============
 
   const handleChange = (e: BaseSyntheticEvent) => {
-    setFormdata((p: any) => {
-      const { name, value } = e.target;
-      return { ...p, [name]: { ...p[name], value } };
-    });
+    const { name, value } = e.target;
+
+    setFormdata((fields: {}[]) =>
+      fields.map((field: any) => {
+        return field['label'].toLowerCase() === name
+          ? { ...field, value }
+          : field;
+      })
+    );
   };
 
-  const handleSelectOption = (data: any) => {
-    setActiveData(data);
+  const handleSelectOption = setState => (data: any) => {
+    setState(data);
   };
 
   const handleSubmit = (e: BaseSyntheticEvent) => {
@@ -39,8 +59,6 @@ const Form = () => {
       images[(activeData || cookie)?.country_code?.toLowerCase()]
     })`,
   };
-
-  const inputs = Object.keys(formData);
 
   return (
     <div className="bg-[#f4f5f7] flex overflow-x-hidden flex-col lg:flex-row lg:items-start items-center py-6 px-4 gap-10 font-sans lg:px-40">
@@ -54,22 +72,29 @@ const Form = () => {
         >
           {/* ========== Inputs ========= */}
 
-          {inputs.map((key: string, i: number) => {
-            if (key === 'name' || key === 'email') {
-              const field = formData[key];
-              return (
-                <Input
-                  key={i}
-                  name={key}
-                  value={field?.value}
-                  label={field?.label}
-                  id={field?.label}
-                  placeHolder={field?.placeHolder}
-                  handleState={handleChange}
-                />
-              );
-            }
-          })}
+          {formData.map((field: any, i: number) => (
+            <Input
+              key={i}
+              name={field?.label?.toLowerCase()}
+              value={field?.value}
+              label={field?.label}
+              id={field?.label}
+              placeholder={field?.placeholder}
+              handleState={handleChange}
+              selectable={field?.selectable}
+              {...(field?.hasOwnProperty('selectable')
+                ? {
+                    selectable: field?.selectable,
+                    activeData: activePhone || cookie,
+                    // label:'Country'
+                    properties: ['phone_code', 'icon'],
+                    data: countries ? countries : [],
+                    handleClick: () => handleSelectOption(setActivePhone),
+                    width: '30%',
+                  }
+                : null)}
+            />
+          ))}
 
           {/* ========== Selects ========= */}
 
@@ -81,17 +106,21 @@ const Form = () => {
             handleClick={handleSelectOption}
           /> */}
 
-          <Select
-            activeData={activeData || cookie}
-            label={'Country'}
-            property="country_name"
-            countries={countries}
-            handleClick={handleSelectOption}
-          />
+          <FieldShape label="Country">
+            <Select
+              activeData={activeData || cookie}
+              label={'Country'}
+              properties={['country_name']}
+              data={countries}
+              handleClick={handleSelectOption(setActiveData)}
+              width="100%"
+            />
+          </FieldShape>
 
           {/* ========== Footer ========= */}
+          <LastSection />
 
-          <SubmitButton>Claim your free consultation now</SubmitButton>
+          <Button type="submit">Claim your free consultation now</Button>
         </form>
       </div>
     </div>

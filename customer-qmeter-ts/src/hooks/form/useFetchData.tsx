@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react';
-import { DataOfFetch } from '../interfaces/interfaces';
+
+import { CountriesData } from '../../interfaces/form';
+import {
+  CookieTypes,
+  DataOfFetch,
+} from '../../interfaces/form/fetchDatainterfaces';
 
 const useFetchData = () => {
-  const [countries, setCountries] = useState([]);
+  const [countries, setCountries] = useState<CountriesData[] | any>([]);
 
-  const [cookie, setCookie] = useState('');
+  const [cookie, setCookie] = useState<CookieTypes | any>('');
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -14,7 +19,7 @@ const useFetchData = () => {
 
         const infos = data.map((each: DataOfFetch) => {
           return {
-            flag: each.flags.png,
+            icon: each.flags.png,
             country_name: each.name.common,
             phone_code: each.idd ? each.idd.root + each.idd.suffixes : '',
             country_code: each.cca2,

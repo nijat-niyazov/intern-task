@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { SetCookie } from '../interfaces/interfaces';
+import { SetCookie } from '../../interfaces/form/fetchDatainterfaces';
 
-const useSetCookie = ({cookie, countries}:SetCookie) => {
+const useSetCookie = ({ cookie, countries }: SetCookie) => {
   const [activeCountry, setactiveCountry] = useState(null);
 
   useEffect(() => {
