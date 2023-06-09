@@ -5,17 +5,21 @@ import type { RotateProps } from './iconstInterfaces';
 import type { ImageTypes } from './imagesInterfaces';
 import type { InitialFormData } from './initialFormInterfaces';
 import type { InputProps } from './inputInterfaces';
-import type { OptionsProps, SelectProps,OptionProp } from './selectInterfaces';
+import type {
+  OptionProps,
+  OptionsProps,
+  SelectProps,
+} from './selectInterfaces';
 
 export type {
   ButtonProps,
   CountriesData,
   FieldShapeProps,
-  OptionsProps,
-  OptionProp,
-  RotateProps,
   ImageTypes,
   InitialFormData,
-  SelectProps,
   InputProps,
+  OptionProps,
+  OptionsProps,
+  RotateProps,
+  SelectProps,
 };

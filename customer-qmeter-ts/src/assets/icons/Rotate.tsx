@@ -1,10 +1,10 @@
 // import { RotateProps } from '../../interfaces/form';
 
-const Rotate = ({ toggle }:{ toggle: boolean } ) => {
+const Rotate = ({ rotated }:{ rotated: boolean } ) => {
   return (
     <svg
-      className={`absolute cursor-pointer bottom-1/2 right-2 translate-y-[50%]  h-4 transition-transform ${
-        toggle ? 'rotate-180' : ''
+      className={`absolute cursor-pointer bottom-1/2 right-0 translate-y-[50%]  h-4 transition-transform ${
+        rotated ? 'rotate-180' : ''
       }`}
       viewBox="0 0 20 20"
       fill="currentColor"

@@ -12,10 +12,4 @@ export const initialData: InitialFormData[] = [
     placeholder: 'example@gmail.com',
     type: 'email',
   },
-  {
-    label: 'Phone Number',
-    value: '',
-    placeholder: '(_ _)__ __ __ - __ __- __ __',
-    selectable: true,
-  },
 ];
