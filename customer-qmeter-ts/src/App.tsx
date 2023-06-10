@@ -1,5 +1,5 @@
 import Form from './features/form';
-import Wrapper from './features/form/Wrapper';
+import Wrapper from './wrappers/form';
 
 function App() {
   return (
