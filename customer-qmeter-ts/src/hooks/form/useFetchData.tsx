@@ -17,12 +17,14 @@ const useFetchData = () => {
         const response = await fetch('https://restcountries.com/v3.1/all');
         const data = await response.json();
 
-        const infos = data.map((each: DataOfFetch) => {
+        const infos = data.map((country: DataOfFetch) => {
           return {
-            icon: each.flags.png,
-            country_name: each.name.common,
-            phone_code: each.idd ? each.idd.root + each.idd.suffixes : '',
-            country_code: each.cca2,
+            icon: country.flags.png,
+            country_name: country.name.common,
+            phone_code: country.idd?.root
+              ? country.idd.root + country.idd.suffixes
+              : '*****',
+            country_code: country.cca2,
           };
         });
 

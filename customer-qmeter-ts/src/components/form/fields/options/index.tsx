@@ -8,7 +8,7 @@ const Options = (props: OptionsProps) => {
         width: props.width,
         height: props.rotated ? '160px' : 0,
       }}
-      className="absolute w-full top-full bg-white rounded-b-md overflow-y-auto z-10 transition-all duration-300  left-0"
+      className="absolute w-full top-full bg-white rounded-b-md overflow-y-auto z-10 transition-all duration-200  left-0"
     >
       {props.options?.map((option: any, i: number) => {
         const property = props.properties[0];
@@ -19,10 +19,10 @@ const Options = (props: OptionsProps) => {
             style={{
               backgroundColor:
                 props.activeData[property] === option[property]
-                  ? '#93c5fd'
+                  ? '#8faae5'
                   : '',
             }}
-            className="hover:bg-gray-300 flex justify-between items-center  cursor-pointer rounded-md p-2"
+            className="hover:bg-gray-300 flex justify-between items-center cursor-pointer rounded-md p-2 m-0.5"
             onClick={() => {
               props.handleClick(option);
               props.handleRotate();
@@ -37,5 +37,3 @@ const Options = (props: OptionsProps) => {
 };
 
 export default Options;
-
-// <Option activeData={props.activeData} properties={props.properties} option={option} handleClick={props.handleClick} handleToggle={props.handleToggle} key={i}/>

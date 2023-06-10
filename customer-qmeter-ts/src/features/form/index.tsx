@@ -5,19 +5,19 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { FirstSection, LastSection } from '../../components/form/sections';
+import { LastSection } from '../../components/form/sections';
 import { initialData } from '../../data/form/initialData';
 import { useFetchData } from '../../hooks/form';
 import { CountriesData } from '../../interfaces/form';
-import { images } from '../../utils/images';
 
 import Button from '../../components/form/buttons';
+import FieldShape from '../../components/form/fieldShape';
 import { Input, Select } from '../../components/form/fields';
-import FieldShape from '../../components/form/shape';
+import { images } from '../../utils/form/images';
 import {
-  errorsOnValidation,
   validateInput,
-} from '../../utils/validation/validation';
+  validation,
+} from '../../utils/form/validation/validation';
 
 const Form = () => {
   const [inputData, setInputData] = useState(initialData);
@@ -28,6 +28,7 @@ const Form = () => {
   const [selectedCountry, setSelectedCountry] = useState({});
 
   const [finalForm, setFinalForm] = useState(null);
+
   const { countries, cookie } = useFetchData();
 
   // ========== ActiveData on first Mount ==========
@@ -46,7 +47,7 @@ const Form = () => {
   const handleChange = useCallback(
     (e: BaseSyntheticEvent) => {
       const { name, value } = e.target;
-      console.log(name);
+      // console.log(name);
 
       // ========== Validation of input ==========
       validateInput(name, value);
@@ -61,6 +62,8 @@ const Form = () => {
     },
     [inputData]
   );
+
+  // console.log(errorsOnValidation);
 
   const handleSelectOption = (setState: any) => (data: any) => {
     setState(data);
@@ -81,18 +84,16 @@ const Form = () => {
   const handleSubmit = (e: BaseSyntheticEvent) => {
     e.preventDefault();
 
-    const form = {
-      ...valuesOfInput,
-      number: selectedPhoneCode?.phone_code + phoneNumber,
-      country: selectedCountry?.country_name,
-    };
+    // const form = {
+    //   ...valuesOfInput,
+    //   number: selectedPhoneCode?.phone_code + phoneNumber,
+    //   country: selectedCountry?.country_name,
+    // };
 
-    setFinalForm(form);
+    // setFinalForm(form);
   };
 
-  // console.log(errorsOnValidation);
-
-  //  Background Image On Cookie
+  //  Background Image On CookieData
   const backgroundImage = useMemo(() => {
     return {
       backgroundImage: `url(${
@@ -101,73 +102,72 @@ const Form = () => {
     };
   }, [cookie]);
 
+  console.log(validation['name']);
+
   return (
-    <div className="bg-[#f4f5f7] flex overflow-x-hidden flex-col lg:flex-row lg:items-start items-center py-6 px-4 gap-10 font-sans lg:px-40">
-      <FirstSection />
+    <form
+      className="grid rounded-xl gap-4 border-gray-300 border-[1px] m-auto text-[#354050] px-6 py-14 text-sm bg-cover"
+      onSubmit={handleSubmit}
+      style={backgroundImage}
+    >
+      {/* ========== Inputs ========= */}
 
-      <div className="rounded-lg lg:mx-10 text-[#354050] border-gray-300 border-[1px] m-auto">
-        <form
-          className="grid gap-4 px-6 py-14 text-sm bg-cover"
-          onSubmit={handleSubmit}
-          style={backgroundImage}
+      {inputData.map((field: any, i: number) => (
+        <FieldShape
+          key={i}
+          label={field?.label}
+          error={validation[field?.label.toLowerCase()]}
         >
-          {/* ========== Inputs ========= */}
+          <Input
+            name={field?.label?.toLowerCase()}
+            value={field?.value}
+            id={field?.label}
+            placeholder={field?.placeholder}
+            handleState={handleChange}
+          />
+        </FieldShape>
+      ))}
 
-          {inputData.map((field: any, i: number) => (
-            <FieldShape key={i} label={field?.label}>
-              <Input
-                name={field?.label?.toLowerCase()}
-                value={field?.value}
-                id={field?.label}
-                placeholder={field?.placeholder}
-                handleState={handleChange}
-              />
-            </FieldShape>
-          ))}
+      {/* ========== Selects ========= */}
 
-          {/* ========== Selects ========= */}
+      <FieldShape label="Select">
+        <Select
+          activeData={selectedPhoneCode || cookie}
+          label={'Phone number'}
+          properties={['icon', 'phone_code']}
+          data={countries}
+          handleClick={handleSelectOption(setSelectedPhoneCode)}
+          width="25%"
+        />
 
-          <FieldShape label="Select">
-            <Select
-              activeData={selectedPhoneCode || cookie}
-              label={'Phone number'}
-              properties={['icon', 'phone_code']}
-              data={countries}
-              handleClick={handleSelectOption(setSelectedPhoneCode)}
-              width="25%"
-            />
+        <Input
+          name={'Phone number'}
+          value={phoneNumber}
+          id={'phone_number'}
+          placeholder={'(_ _)__ __ __ - __ __- __ __'}
+          handleState={e => {
+            validateInput('phoneNumber', e.target.value);
+            setPhoneNumber(e.target.value);
+          }}
+        />
+      </FieldShape>
 
-            <Input
-              name={'Phone number'}
-              value={phoneNumber}
-              id={'phone_number'}
-              placeholder={'(_ _)__ __ __ - __ __- __ __'}
-              handleState={e => {
-                validateInput('phoneNumber', e.target.value);
-                setPhoneNumber(e.target.value);
-              }}
-            />
-          </FieldShape>
+      <FieldShape label="Country">
+        <Select
+          activeData={selectedCountry || cookie}
+          label={'Country'}
+          properties={['country_name']}
+          data={countries}
+          handleClick={handleSelectOption(setSelectedCountry)}
+          width="100%"
+        />
+      </FieldShape>
 
-          <FieldShape label="Country">
-            <Select
-              activeData={selectedCountry || cookie}
-              label={'Country'}
-              properties={['country_name']}
-              data={countries}
-              handleClick={handleSelectOption(setSelectedCountry)}
-              width="100%"
-            />
-          </FieldShape>
+      <LastSection />
 
-          {/* ========== Footer ========= */}
-
-          <LastSection />
-
-          <Button type="submit">Claim your free consultation now</Button>
-        </form>
-      </div>
-    </div>
+      <Button type="submit">Claim your free consultation now</Button>
+      {/* <Button type="submit">Claim your free consultation now</Button> */}
+    </form>
   );
 };
 
