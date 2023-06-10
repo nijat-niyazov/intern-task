@@ -1,4 +1,4 @@
-import { FieldShapeProps } from '../../../interfaces/form';
+import { FieldShapeProps } from '~/interfaces/form';
 
 const FieldShape = (props: FieldShapeProps) => {
   return (

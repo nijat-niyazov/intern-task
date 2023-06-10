@@ -1,4 +1,4 @@
-import { OptionProps } from '../../../../interfaces/form';
+import { OptionProps } from '~/interfaces/form';
 
 const Option = (props: OptionProps) => {
   return props.properties.map((property: string, i: number) =>
@@ -10,7 +10,10 @@ const Option = (props: OptionProps) => {
         alt="icon"
       />
     ) : (
-      <span key={i}>{props.activeData[property] ?? property}</span>
+      <span key={i}>
+        {props.activeData[property] ??
+          (property === 'country_name' ? 'United States' : '+123')}
+      </span>
     )
   );
 };

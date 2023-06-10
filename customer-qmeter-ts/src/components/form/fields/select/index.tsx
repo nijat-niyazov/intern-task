@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { Rotate } from '../../../../assets/icons';
-import { SelectProps } from '../../../../interfaces/form';
+import { Rotate } from '~/assets/icons';
+import { SelectProps } from '~/interfaces/form';
 import Options from '../options';
 import Option from '../options/Option';
 

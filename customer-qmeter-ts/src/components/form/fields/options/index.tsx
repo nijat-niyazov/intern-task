@@ -1,4 +1,4 @@
-import { OptionsProps } from '../../../../interfaces/form';
+import { OptionsProps } from '~/interfaces/form';
 import Option from './Option';
 
 const Options = (props: OptionsProps) => {

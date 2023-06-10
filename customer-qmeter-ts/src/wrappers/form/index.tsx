@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { FirstSection } from '../../components/form/sections';
+import { FirstSection } from '~/components/form/sections';
 
 type WrapperProps = {
   children?: ReactNode;

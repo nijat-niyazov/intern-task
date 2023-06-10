@@ -1,4 +1,4 @@
-import { InputProps } from '../../../../interfaces/form';
+import { InputProps } from '~/interfaces/form';
 
 const Input = (props: InputProps) => {
   return (

@@ -5,19 +5,17 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { LastSection } from '../../components/form/sections';
-import { initialData } from '../../data/form/initialData';
-import { useFetchData } from '../../hooks/form';
-import { CountriesData } from '../../interfaces/form';
 
-import Button from '../../components/form/buttons';
-import FieldShape from '../../components/form/fieldShape';
-import { Input, Select } from '../../components/form/fields';
-import { images } from '../../utils/form/images';
-import {
-  validateInput,
-  validation,
-} from '../../utils/form/validation/validation';
+import { LastSection } from '~/components/form/sections';
+import { initialData } from '~/data/form/initialData';
+import { useFetchData } from '~/hooks/form';
+
+import Button from '~/components/form/buttons';
+import FieldShape from '~/components/form/fieldShape';
+import { Input, Select } from '~/components/form/fields';
+import { CountriesData } from '~/interfaces/form';
+import { images } from '~/utils/form/images';
+import { validateInput, validation } from '~/utils/form/validation/validation';
 
 const Form = () => {
   const [inputData, setInputData] = useState(initialData);
@@ -63,8 +61,6 @@ const Form = () => {
     [inputData]
   );
 
-  // console.log(errorsOnValidation);
-
   const handleSelectOption = (setState: any) => (data: any) => {
     setState(data);
   };
@@ -84,13 +80,13 @@ const Form = () => {
   const handleSubmit = (e: BaseSyntheticEvent) => {
     e.preventDefault();
 
-    // const form = {
-    //   ...valuesOfInput,
-    //   number: selectedPhoneCode?.phone_code + phoneNumber,
-    //   country: selectedCountry?.country_name,
-    // };
+    const form = {
+      ...valuesOfInput,
+      number: selectedPhoneCode?.phone_code + phoneNumber,
+      country: selectedCountry?.country_name,
+    };
 
-    // setFinalForm(form);
+    setFinalForm(form);
   };
 
   //  Background Image On CookieData

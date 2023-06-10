@@ -1,4 +1,4 @@
-import { ButtonProps } from '../../../interfaces/form';
+import { ButtonProps } from '~/interfaces/form';
 
 const Button = ({ children, type }: ButtonProps) => {
   return (
