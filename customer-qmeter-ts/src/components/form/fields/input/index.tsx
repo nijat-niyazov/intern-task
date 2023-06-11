@@ -4,7 +4,7 @@ const Input = (props: InputProps) => {
   return (
     <input
       value={props.value}
-      name={props.name}
+      name={props.name.toLowerCase()}
       onChange={props.handleState}
       type={props.type || 'text'}
       placeholder={props.placeholder}

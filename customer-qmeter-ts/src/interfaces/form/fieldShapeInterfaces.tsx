@@ -1,5 +1,5 @@
 export interface FieldShapeProps {
-  label?: string;
+  label: string;
   children: React.ReactNode;
   error?: string;
 }

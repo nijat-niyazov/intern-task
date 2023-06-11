@@ -1,5 +1,5 @@
 export interface InitialFormData {
-  label: string;
+  name: string;
   value: string | number;
   placeholder: string;
   type?: string;

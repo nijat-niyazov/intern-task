@@ -2,14 +2,20 @@ import { InitialFormData } from '../../interfaces/form';
 
 export const initialData: InitialFormData[] = [
   {
-    label: 'Name',
+    name: 'Name',
     value: '',
     placeholder: 'Your Name',
   },
   {
-    label: 'Email',
+    name: 'Email',
     value: '',
     placeholder: 'example@gmail.com',
     type: 'email',
   },
+  // {
+  //   name: 'Phone Number',
+  //   value: '',
+  //   placeholder: '123456789',
+  //   // type: 'email',
+  // },
 ];

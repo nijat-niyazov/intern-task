@@ -15,14 +15,14 @@ import FieldShape from '~/components/form/fieldShape';
 import { Input, Select } from '~/components/form/fields';
 import { CountriesData } from '~/interfaces/form';
 import { images } from '~/utils/form/images';
-import { validateInput, validation } from '~/utils/form/validation/validation';
+import { errorField } from '~/utils/form/validation/errorField';
+import { validateInput } from '~/utils/form/validation/validation';
 
 const Form = () => {
   const [inputData, setInputData] = useState(initialData);
-  const [phoneNumber, setPhoneNumber] = useState('');
 
   const [selectedPhoneCode, setSelectedPhoneCode] = useState({});
-
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [selectedCountry, setSelectedCountry] = useState({});
 
   const [finalForm, setFinalForm] = useState(null);
@@ -45,14 +45,13 @@ const Form = () => {
   const handleChange = useCallback(
     (e: BaseSyntheticEvent) => {
       const { name, value } = e.target;
-      // console.log(name);
 
       // ========== Validation of input ==========
-      validateInput(name, value);
+      validateInput(errorField(name), value);
 
       setInputData((fields: {}[]) =>
         fields.map((field: any) => {
-          return field['label'].toLowerCase() === name
+          return field?.name.toLowerCase() === name
             ? { ...field, value }
             : field;
         })
@@ -67,29 +66,29 @@ const Form = () => {
 
   // ========== inputValues for Submit ==========
 
-  const valuesOfInput = useMemo(() => {
+  const valuesOfInputs = useMemo(() => {
     return inputData.reduce((result, input) => {
-      const { label, value } = input;
+      const { name, value } = input;
 
-      result[label.toLowerCase()] = value;
+      result[name.toLowerCase()] = value;
       return result;
     }, {});
   }, [inputData]);
 
-  // Submit Function
+  // ================ submit function ================
   const handleSubmit = (e: BaseSyntheticEvent) => {
     e.preventDefault();
 
     const form = {
-      ...valuesOfInput,
-      number: selectedPhoneCode?.phone_code + phoneNumber,
+      ...valuesOfInputs,
+      phoneNumber: selectedPhoneCode?.phone_code + phoneNumber,
       country: selectedCountry?.country_name,
     };
 
     setFinalForm(form);
   };
 
-  //  Background Image On CookieData
+  // ========== background image based on cookieData ===========
   const backgroundImage = useMemo(() => {
     return {
       backgroundImage: `url(${
@@ -98,7 +97,7 @@ const Form = () => {
     };
   }, [cookie]);
 
-  console.log(validation['name']);
+  console.log(finalForm);
 
   return (
     <form
@@ -111,13 +110,13 @@ const Form = () => {
       {inputData.map((field: any, i: number) => (
         <FieldShape
           key={i}
-          label={field?.label}
-          error={validation[field?.label.toLowerCase()]}
+          label={field?.name}
+          // error={validation[errorField(field.name)]}
         >
           <Input
-            name={field?.label?.toLowerCase()}
+            name={field?.name}
             value={field?.value}
-            id={field?.label}
+            id={field?.name}
             placeholder={field?.placeholder}
             handleState={handleChange}
           />
@@ -126,10 +125,9 @@ const Form = () => {
 
       {/* ========== Selects ========= */}
 
-      <FieldShape label="Select">
+      <FieldShape label="Phone Number">
         <Select
           activeData={selectedPhoneCode || cookie}
-          label={'Phone number'}
           properties={['icon', 'phone_code']}
           data={countries}
           handleClick={handleSelectOption(setSelectedPhoneCode)}
@@ -142,7 +140,7 @@ const Form = () => {
           id={'phone_number'}
           placeholder={'(_ _)__ __ __ - __ __- __ __'}
           handleState={e => {
-            validateInput('phoneNumber', e.target.value);
+            validateInput('phonenumber', e.target.value);
             setPhoneNumber(e.target.value);
           }}
         />
@@ -151,7 +149,6 @@ const Form = () => {
       <FieldShape label="Country">
         <Select
           activeData={selectedCountry || cookie}
-          label={'Country'}
           properties={['country_name']}
           data={countries}
           handleClick={handleSelectOption(setSelectedCountry)}

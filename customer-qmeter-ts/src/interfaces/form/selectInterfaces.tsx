@@ -20,7 +20,9 @@ export interface SelectProps {
   data: Countries;
 
   handleClick: (e: React.MouseEvent<HTMLDataElement>) => void;
-  handleRotate?: (e: React.MouseEvent<HTMLDataElement>) => void;
+  handleRotate?:
+    | ((e: React.MouseEvent<HTMLLIElement, MouseEvent>) => void)
+    | undefined;
 }
 
 export interface OptionsProps {
@@ -32,7 +34,7 @@ export interface OptionsProps {
   options: Countries;
   handleClick: (e: React.MouseEvent<HTMLDataElement>) => void;
   handleRotate?:
-    | ((e: React.MouseEvent<HTMLDataElement, MouseEvent>) => void)
+    | ((e: React.MouseEvent<HTMLLIElement, MouseEvent>) => void)
     | undefined;
 }
 
@@ -40,11 +42,4 @@ export interface OptionProp {
   activeData: any;
   properties: string | [];
   option: any;
-  // handleClick: (e: React.MouseEvent<HTMLDataElement>) => void;
-  // handleToggle?: (e: React.MouseEvent<HTMLDataElement>) => void;
-
-  // icon: string;
-  // country_code: string;
-  // country_name: string;
-  // phone_code: string;
 }
