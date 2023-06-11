@@ -17,7 +17,7 @@ const FieldShape = (props: FieldShapeProps) => {
     } else {
       errorRef.current?.classList.add('scale-out');
       errorRef.current?.classList.remove('slide-in');
-      
+
       fieldRef.current?.classList.add('border-green-400');
       fieldRef.current?.classList.remove('border-blue-300');
     }
@@ -34,13 +34,13 @@ const FieldShape = (props: FieldShapeProps) => {
       componentRef.current?.classList.remove('animate-bounce');
 
       fieldRef.current?.classList.add('border-blue-300');
-      fieldRef.current?.classList.remove('border-red-700');
+      fieldRef.current?.classList.remove('animate-pulse', 'border-red-700');
     }
   };
 
   const handleBlur = (e: any) => {
     if (e.target.value !== '' && validation[errorField(props.label)]) {
-      fieldRef.current?.classList.add('border-red-700');
+      fieldRef.current?.classList.add('animate-pulse', 'border-red-700');
       fieldRef.current?.classList.remove('border-blue-300');
 
       componentRef.current?.classList.add('animate-bounce');
