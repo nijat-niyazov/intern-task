@@ -1,11 +1,6 @@
-import { FC, memo } from 'react';
+import { memo } from 'react';
 
-interface QmeterProps {
-  collapsed: boolean;
-}
-
-const QmeterLogo: FC<QmeterProps> = ({ collapsed }) => {
-// const QmeterLogo = ({ collapsed }: boolean) => {
+const QmeterLogo = ({ collapsed }: { collapsed: boolean }) => {
   return (
     <div className="bg-[#e44044] p-4 flex justify-center">
       <div className="sidebar_logo__BWO_u">
