@@ -1,0 +1,36 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "name": "Nijat Niyazov",
+      "email": "n@gmail.com",
+      "phone": "055"
+    }
+  ],
+  "templates": [
+    {
+      "id": 1,
+      "name": "Thanks Template",
+      "description": "test desc"
+    }
+  ],
+  "sms": [
+    {
+      "name": "new tem",
+      "text": "new test",
+      "id": 1687157504574
+    },
+    {
+      "name": "new sms",
+      "text": "okay",
+      "id": 1687157853947
+    }
+  ],
+  "email": [
+    {
+      "id": 1,
+      "name": "Warning Template",
+      "description": "test desc"
+    }
+  ]
+}

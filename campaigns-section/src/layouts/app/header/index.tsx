@@ -10,7 +10,6 @@ const HeaderOfLayout = ({
   return (
     <Header
       style={{
-        // position: 'fixed',
         padding: 0,
         height: '62px',
       }}

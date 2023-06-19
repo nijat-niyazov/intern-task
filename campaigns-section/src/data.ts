@@ -25,4 +25,7 @@ export const pageLayoutData = {
     purpose: 'You can create templates for your campaigns to use in future.',
     headerButton: 'New template',
   },
+  sms_thread: {
+    headerButton: 'Save Draft',
+  },
 };

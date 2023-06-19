@@ -1,4 +1,6 @@
-@import './layouts/main/siderbar.css';
+@import './sidebar.css';
+@import './table.css';
+
 
 @tailwind base;
 @tailwind components;

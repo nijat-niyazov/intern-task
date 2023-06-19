@@ -1,11 +1,11 @@
 import { Card, Table } from 'antd';
 import Search from 'antd/es/input/Search';
-import { FC } from 'react';
 import { allData } from '../tableData';
 
-const Email: FC = () => {
+const Campaign: React.FC = () => {
   return (
-    <Card style={{ width: '100%' }}>
+   
+   <Card style={{ width: '100%' }}>
       <Search
         placeholder="Search..."
         style={{
@@ -17,12 +17,12 @@ const Email: FC = () => {
       />
 
       <Table
-        columns={allData.sms.columns}
-        dataSource={allData.sms.data}
+        columns={allData.campaigns.columns}
+        dataSource={allData.campaigns.data}
         size="small"
       />
     </Card>
   );
 };
 
-export default Email;
+export default Campaign;

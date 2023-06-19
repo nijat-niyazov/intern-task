@@ -1,10 +1,11 @@
 import { Menu } from 'antd';
 import Sider from 'antd/es/layout/Sider';
 import { memo } from 'react';
-import { QmeterLogo } from '../../assets';
-import { items } from './sidebarItems';
+import { QmeterLogo } from '~/assets';
+import { items } from '../../../assets/sidebarItems';
 
 const SideBar = ({ collapsed }: { collapsed: boolean }) => {
+  
   return (
     <Sider
       className="h-screen"
@@ -19,7 +20,6 @@ const SideBar = ({ collapsed }: { collapsed: boolean }) => {
         mode="inline"
         inlineCollapsed={collapsed}
         items={items}
-        // triggerSubMenuAction="hover"
         className="bg-[#444A58] overflow-hidden py-0.3"
       />
     </Sider>

@@ -1,0 +1,12 @@
+.ant-table-thead .ant-table-cell {
+  border-radius: 0 !important ;
+  background-color: transparent !important;
+}
+
+.ant-table-thead .ant-table-cell::before {
+  opacity: 0;
+}
+
+.ant-table-cell-row-hover {
+  background-color: rgb(242, 242, 242) !important;
+}

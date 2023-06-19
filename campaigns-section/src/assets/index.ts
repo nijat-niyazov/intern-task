@@ -1,3 +1,3 @@
-import QmeterLogo from "./QmeterLogo";
+import QmeterLogo from './QmeterLogo';
 
-export {QmeterLogo}
+export { QmeterLogo };

@@ -12,7 +12,7 @@
 }
 
 .ant-layout-sider-children {
-  background-color: #444A58 ;
+  background-color: #444a58;
 }
 
 .ant-menu-submenu-active .ant-menu-submenu-title {
@@ -41,8 +41,10 @@
   background: red;
 }
 
-/* .anticon > svg {
-  width: 5px;
-  height: 5px;
-  font-size: 5px;
-} */
+.ant-modal-content {
+  padding: 0 !important;
+}
+
+.tablet {
+  background-color: aqua;
+}
