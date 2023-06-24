@@ -5,19 +5,24 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom';
-import SmsThread from './components/threads/SmsThread';
-import { MainLayout } from './layouts';
-import { Campaign, Email, Sms } from './pages';
+import { TableData } from './components';
+import SmsThread from './components/threads/sms';
+import MainLayout from './layouts/app';
+import CampaignPagesLayout from './pages/campaigns';
+import Licensing from './pages/settings/licensing';
 import { store } from './redux/store';
 
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
-        <Route path="campaigns" element={<Campaign />} />
-        <Route path="sms" element={<Sms />} />
-        <Route path="email" element={<Email />} />
+        <Route path="campaigns" element={<CampaignPagesLayout />}>
+          <Route path=":section" element={<TableData />} />
+        </Route>
+
         <Route path="sms_thread" element={<SmsThread />} />
+        <Route path="settings/licensing" element={<Licensing />} />
+        
       </Route>
     )
   );

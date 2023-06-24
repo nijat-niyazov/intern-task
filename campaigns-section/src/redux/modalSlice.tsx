@@ -24,7 +24,6 @@ export const modalSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { handleModal, typeOfModal } = modalSlice.actions;
 export const isModalOpened = (state: RootState) => state.modal?.isModalOpened;
 export const modalOf = (state: RootState) => state.modal?.modalOf;

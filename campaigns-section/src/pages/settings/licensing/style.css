@@ -1,0 +1,11 @@
+.ant-card-body {
+  padding-top: 0 !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+.ant-table-thead > tr > th {
+  color: #65676b !important;
+  font-size: 13px;
+  font-weight: 600;
+}

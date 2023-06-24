@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Notification } from '~/components';
-import { pageLayoutData } from '~/data';
 import { handleModal, typeOfModal } from '~/redux/modalSlice';
+import { pageLayoutData } from '~/utils/data';
 
 const items: MenuProps['items'] = [
   {
@@ -19,7 +19,7 @@ const items: MenuProps['items'] = [
 ];
 
 const HeaderOfPageLayout: FC = () => {
-  const location = useLocation().pathname.slice(1);
+  const location = useLocation().pathname.split('/').at(-1);
 
   const dispatch = useDispatch();
 
@@ -36,27 +36,29 @@ const HeaderOfPageLayout: FC = () => {
             </h1>
           </div>
 
-          {location === 'campaigns' ? (
-            <Dropdown menu={{ items }} trigger={['click']}>
+          {pageLayoutData[location]?.headerButton ? (
+            location === 'campaign' ? (
+              <Dropdown menu={{ items }} trigger={['click']}>
+                <button
+                  className="bg-green-500 px-4 py-1 text-white"
+                  type="button"
+                >
+                  {pageLayoutData[location]?.headerButton}
+                </button>
+              </Dropdown>
+            ) : (
               <button
+                onClick={() => {
+                  dispatch(handleModal(true));
+                  dispatch(typeOfModal(location));
+                }}
                 className="bg-green-500 px-4 py-1 text-white"
                 type="button"
-                >
+              >
                 {pageLayoutData[location]?.headerButton}
               </button>
-            </Dropdown>
-          ) : (
-            <button
-              onClick={() => {
-                dispatch(handleModal(true));
-                dispatch(typeOfModal(location));
-              }}
-              className="bg-green-500 px-4 py-1 text-white"
-              type="button"
-            >
-              {pageLayoutData[location]?.headerButton}
-            </button>
-          )}
+            )
+          ) : null}
         </div>
       </div>
     </>

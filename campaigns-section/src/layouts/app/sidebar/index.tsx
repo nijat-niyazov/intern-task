@@ -2,7 +2,8 @@ import { Menu } from 'antd';
 import Sider from 'antd/es/layout/Sider';
 import { memo } from 'react';
 import { QmeterLogo } from '~/assets';
-import { items } from '../../../assets/sidebarItems';
+import { items } from '~/utils/sidebarItems';
+
 
 const SideBar = ({ collapsed }: { collapsed: boolean }) => {
   
@@ -20,10 +21,14 @@ const SideBar = ({ collapsed }: { collapsed: boolean }) => {
         mode="inline"
         inlineCollapsed={collapsed}
         items={items}
-        className="bg-[#444A58] overflow-hidden py-0.3"
+        className="bg-[#444A58] overflow-hidden py-0.3 h-screen"
       />
     </Sider>
   );
 };
 
 export default memo(SideBar);
+
+
+
+

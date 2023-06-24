@@ -1,7 +1,6 @@
 import { Form, Input, Modal as ModalContainer } from 'antd';
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC, useState,Dispatch,SetStateAction } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { sendSmsTemplate } from '~/api/sms';
 import { handleModal, isModalOpened, modalOf } from '~/redux/modalSlice';
 import Footer from './footer';
 import TextField from './sms';
@@ -17,7 +16,7 @@ const Modal: FC = () => {
   const dispatch = useDispatch();
 
   const handleChange =
-    (setState: ChangeEvent<HTMLInputElement>) => (e: Event) => {
+    (setState: Dispatch<SetStateAction<string>>) => (e: ChangeEvent<HTMLInputElement>) => {
       setState(e.target.value);
     };
 

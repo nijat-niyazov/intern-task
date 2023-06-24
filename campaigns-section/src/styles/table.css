@@ -10,3 +10,18 @@
 .ant-table-cell-row-hover {
   background-color: rgb(242, 242, 242) !important;
 }
+
+.ant-dropdown-menu {
+  border-radius: 0 !important;
+}
+
+.ant-btn {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 5px;
+}
+
+.ant-btn-icon {
+  margin: 0 !important;
+}

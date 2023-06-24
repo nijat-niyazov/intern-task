@@ -1,0 +1,16 @@
+.ant-picker {
+  border-radius: 0% !important;
+}
+
+.ant-picker-ok > button {
+  background-color: blue;
+}
+
+.ant-picker-input > input,
+.ant-picker-input > input::placeholder,
+.ant-select-selector,
+.ant-form-item-control-input-content > textarea,
+.ant-form-item-explain-error {
+  font-weight: 400 !important;
+  border-radius: 0% !important;
+}

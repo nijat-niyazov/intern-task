@@ -9,7 +9,7 @@ export const pageLayoutData = {
     purpose: 'You can manage your templates from this section.',
     headerButton: 'Create Template',
   },
-  campaigns: {
+  campaign: {
     header: 'Campaigns',
     purpose:
       'You can communicate with your customers directly from this section.',
@@ -27,5 +27,10 @@ export const pageLayoutData = {
   },
   sms_thread: {
     headerButton: 'Save Draft',
+  },
+  licensing: {
+    header: 'Setting License',
+    purpose: 'Lorem ipsum van gogh or da vinci',
+    // headerButton: 'New template',
   },
 };

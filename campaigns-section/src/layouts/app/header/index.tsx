@@ -2,12 +2,13 @@ import { Button } from 'antd';
 import { Header } from 'antd/es/layout/layout';
 import { memo } from 'react';
 
-const HeaderOfLayout = ({
+const HeaderOfAppLayout = ({
   handleCollapsed,
 }: {
   handleCollapsed: () => void;
 }) => {
   return (
+    
     <Header
       style={{
         padding: 0,
@@ -26,7 +27,8 @@ const HeaderOfLayout = ({
         }}
       />
     </Header>
+    
   );
 };
 
-export default memo(HeaderOfLayout);
+export default memo(HeaderOfAppLayout);

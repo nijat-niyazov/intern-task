@@ -34,11 +34,11 @@ export const items: MenuItem[] = [
   getItem(<Link to="/customers">Customers</Link>, '2', <SmileFilled />),
 
   getItem('Campaigns', 'sub1', <MessageFilled />, [
-    getItem(<Link to="/campaigns">Campaigns</Link>, '5'),
-    getItem(<Link to="/sms">SMS template</Link>, '6'),
-    getItem(<Link to="/email">Email template</Link>, '7'),
+    getItem(<Link to="/campaigns/campaign">Campaign</Link>, '5'),
+    getItem(<Link to="/campaigns/sms">SMS template</Link>, '6'),
+    getItem(<Link to="/campaigns/email">Email template</Link>, '7'),
   ]),
   getItem('Settings', 'sub2', <SettingFilled />, [
-    getItem(<Link to="/settings">tsts</Link>, '8'),
+    getItem(<Link to="/settings/licensing">Licensing</Link>, '8'),
   ]),
 ];

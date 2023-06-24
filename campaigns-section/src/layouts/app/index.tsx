@@ -1,9 +1,10 @@
 import { Layout } from 'antd';
 import { FC, useCallback, useState } from 'react';
 import { Modal } from '~/components';
-import PageLayout from '../page';
-import HeaderOfLayout from './header';
-import SideBar from './side';
+import BodyOfPageLayout from '../page/body';
+import HeaderOfPageLayout from '../page/header';
+import HeaderOfAppLayout from './header';
+import SideBar from './sidebar';
 
 const MainLayout: FC = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -17,9 +18,13 @@ const MainLayout: FC = () => {
       <SideBar collapsed={collapsed} />
 
       <Layout>
-        <HeaderOfLayout handleCollapsed={handleCollapsed} />
+        <HeaderOfAppLayout handleCollapsed={handleCollapsed} />
+        
         <Modal />
-        <PageLayout />
+        
+        <HeaderOfPageLayout />
+        <BodyOfPageLayout />
+      
       </Layout>
     </Layout>
   );

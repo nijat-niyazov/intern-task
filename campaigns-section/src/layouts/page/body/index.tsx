@@ -3,7 +3,7 @@ import { Outlet } from 'react-router';
 
 const BodyOfPageLayout: React.FC = () => {
   return (
-    <Content className="flex m-4 gap-4 items-start">
+    <Content className="flex flex-col md:flex-row my-2 md:m-4 gap-4 items-start">
       <Outlet />
     </Content>
   );

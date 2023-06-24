@@ -1,6 +1,8 @@
 import Modal from './modal';
 import Notification from './notification';
-import EmailThread from './threads/EmailThread';
-import SmsThread from './threads/SmsThread';
+import TableData from './table';
+import EmailThread from './threads/email';
+import Info from './threads/info';
+import SmsThread from './threads/sms';
 
-export { EmailThread, Modal, Notification, SmsThread };
+export { EmailThread, Info, Modal, Notification, SmsThread, TableData };

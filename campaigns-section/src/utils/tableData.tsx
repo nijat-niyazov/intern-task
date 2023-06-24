@@ -1,4 +1,3 @@
-import { Space } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { Link } from 'react-router-dom';
 
@@ -16,7 +15,7 @@ interface DataType {
   }[];
 }
 
-const campaignsColumns: ColumnsType<DataType> = [
+const campaignColumns: ColumnsType<DataType> = [
   {
     title: '#',
     dataIndex: 'id',
@@ -63,24 +62,22 @@ const campaignsColumns: ColumnsType<DataType> = [
     key: 'action',
     render: (_, record) => {
       return (
-        <Space size="small">
-          <div className="flex gap-2 w-10">
-            {record.actions.map((action, i) => {
-              return (
-                <Link
-                  key={i}
-                  to={'sms-view/' + record.id}
-                  style={{
-                    backgroundColor: action?.background,
-                  }}
-                  className="bg-amber-500 px-4 py-2 hover:bg-amber-400 focus-within:outline-none border-none hover:text-white text-white"
-                >
-                  {action.label}
-                </Link>
-              );
-            })}
-          </div>
-        </Space>
+        <div className="flex gap-2 w-10">
+          {record.actions.map((action, i) => {
+            return (
+              <Link
+                key={i}
+                to={'sms-view/' + record.id}
+                style={{
+                  backgroundColor: action?.background,
+                }}
+                className="bg-amber-500 px-4 py-2 hover:bg-amber-400 focus-within:outline-none border-none hover:text-white text-white"
+              >
+                {action.label}
+              </Link>
+            );
+          })}
+        </div>
       );
     },
   },
@@ -104,30 +101,28 @@ const smsColumns: ColumnsType<DataType> = [
     key: 'action',
     render: (_, record) => {
       return (
-        <Space size="small">
-          <div className="flex gap-2 w-10">
-            {record.actions.map((action, i) => {
-              return (
-                <Link
-                  key={i}
-                  to={'sms-view/' + record.id}
-                  style={{
-                    backgroundColor: action?.background,
-                  }}
-                  className="bg-amber-500 px-4 py-2 hover:bg-amber-400 focus-within:outline-none border-none hover:text-white text-white"
-                >
-                  {action.label}
-                </Link>
-              );
-            })}
-          </div>
-        </Space>
+        <div className="flex gap-2 w-10">
+          {record.actions.map((action, i) => {
+            return (
+              <Link
+                key={i}
+                to={'sms-view/' + record.id}
+                style={{
+                  backgroundColor: action?.background,
+                }}
+                className="bg-amber-500 px-4 py-2 hover:bg-amber-400 focus-within:outline-none border-none hover:text-white text-white"
+              >
+                {action.label}
+              </Link>
+            );
+          })}
+        </div>
       );
     },
   },
 ];
 
-const campaignsData: DataType[] = [
+const campaignData: DataType[] = [
   {
     key: '1',
     id: 1,
@@ -189,8 +184,8 @@ export const allData = {
     columns: smsColumns,
     data: smsData,
   },
-  campaigns: {
-    columns: campaignsColumns,
-    data: campaignsData,
+  campaign: {
+    columns: campaignColumns,
+    data: campaignData,
   },
 };
