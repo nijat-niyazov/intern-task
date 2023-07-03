@@ -40,7 +40,7 @@ export const IconOfPayPal = () => {
       width="100%"
       height="100%"
       viewBox="0 0 124 33"
-      enable-background="new 0 0 124 33"
+      enableBackground="new 0 0 124 33"
       fontSize="20"
     >
       <path

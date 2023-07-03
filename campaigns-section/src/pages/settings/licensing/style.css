@@ -1,5 +1,6 @@
 .ant-card-body {
   padding-top: 0 !important;
+  padding-bottom: 0 !important;
   padding-left: 10px !important;
   padding-right: 10px !important;
 }
@@ -8,4 +9,14 @@
   color: #65676b !important;
   font-size: 13px;
   font-weight: 600;
+}
+
+.ant-modal-title {
+  background-color: #335c9a;
+  padding: 10px 30px;
+  color: white !important;
+}
+
+.ant-modal-close {
+  color: white !important;
 }

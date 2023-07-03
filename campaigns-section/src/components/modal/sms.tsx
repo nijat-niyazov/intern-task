@@ -5,9 +5,8 @@ const TextField = ({
   onChange,
 }: {
   value: string;
-  onChange: () => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }) => {
-  
   const length: number = value?.length;
   const messageCount = parseInt((length - 1) / 160);
   const remaining = (messageCount + 1) * 160 - length;
