@@ -6,10 +6,6 @@
   display: none;
 }
 
-/* For Firefox */
-scrollbar-width: none;
-
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

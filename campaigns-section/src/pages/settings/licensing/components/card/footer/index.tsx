@@ -9,7 +9,6 @@ interface FooterDataProps {
 }
 
 const CardFooter: FC<FooterDataProps> = ({ icon, buttons, openModalType }) => {
-  
   let handleClick: any;
 
   if (openModalType) {
@@ -17,7 +16,7 @@ const CardFooter: FC<FooterDataProps> = ({ icon, buttons, openModalType }) => {
   }
 
   return (
-    <div className="flex ml-auto items-center gap-4 w-auto justify-end">
+    <div className="flex flex-wrap mt-5 mb-2 gap-2 justify-end">
       {icon && <span className="w-24 ">{icon}</span>}
       {buttons.map((btn, i) => (
         <Button
@@ -28,6 +27,7 @@ const CardFooter: FC<FooterDataProps> = ({ icon, buttons, openModalType }) => {
             borderRadius: '0px',
           }}
           onClick={handleClick}
+          className="rounded-md"
         >
           {btn}
         </Button>

@@ -1,28 +1,34 @@
-import { Modal as AntModal } from 'antd';
-import Search from 'antd/es/input/Search';
-import { FC, useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { SearchOutlined } from '@ant-design/icons';
+import { Modal as AntModal, Input } from 'antd';
+import { FC, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import useSWR from 'swr';
-import { handleShowModal } from '~/redux/licenseModalSlice';
+import { handleShowModal, isModalOpened } from '~/redux/licenseModalSlice';
 import { fetchData } from '../../api';
-import { AlertContent, LicenseManage, SmsContent } from './contents';
+import {
+  AlertContent,
+  LicenseManage,
+  LicenseUpdate,
+  SmsContent,
+} from './modalContents';
 
 interface ModalProps {
   title: string;
-  isModalOpen: boolean;
-  width: string;
-  hasFooter: boolean;
+  isModalOpen?: boolean;
+  width?: string;
+  hasFooter?: true;
   cacheKey?: string;
-  searchable: boolean;
+  searchable?: true;
+  children?: React.ReactNode;
 }
 
-const ModalComponent: FC<ModalProps> = ({
+const Modal: FC<ModalProps> = ({
   title,
-  width,
-  hasFooter,
+  // width,
+  hasFooter = false,
   cacheKey,
-  searchable,
-  isModalOpen,
+  searchable = false,
+  // children,
 }) => {
   const [query, setQuery] = useState<string>('');
   const dispatch = useDispatch();
@@ -32,33 +38,29 @@ const ModalComponent: FC<ModalProps> = ({
     dispatch(handleShowModal(false));
   };
 
+  const isModalOpen = useSelector(isModalOpened);
+
   const { data: modalData, isLoading } = useSWR(
     isModalOpen ? cacheKey : null,
     fetchData
   );
 
-  const filtered = useMemo(() => {
-    if (cacheKey?.includes('sms')) {
-      return modalData?.filter((eachData: any) =>
-        eachData.name.toLowerCase().includes(query.toLowerCase())
-      );
-    }
-  }, [modalData, query]);
-
   let content;
 
-  if (cacheKey) {
-    if (cacheKey.includes('sms')) {
-      content = <SmsContent filtered={filtered} />;
-    }
+  if (cacheKey?.includes('alert')) {
+    content = <AlertContent data={modalData} />;
+  }
 
-    if (cacheKey.includes('alert')) {
-      content = <AlertContent />;
-    }
+  if (cacheKey?.includes('sms')) {
+    content = <SmsContent data={modalData} query={query} />;
+  }
 
-    if (cacheKey.includes('use')) {
-      content = <LicenseManage />;
-    }
+  if (cacheKey?.includes('use')) {
+    content = <LicenseManage data={modalData} />;
+  }
+
+  if (cacheKey?.includes('upgrade')) {
+    content = <LicenseUpdate />;
   }
 
   return (
@@ -67,36 +69,32 @@ const ModalComponent: FC<ModalProps> = ({
       open={isModalOpen}
       onCancel={hideModal}
       footer={null}
-      width={width}
+      // width={width}
+      // destroyOnClose={true}
     >
       {searchable && (
-        <Search
+        <Input
           value={query}
-          className="ml-auto flex py-4 pr-10"
+          className="ml-auto flex m-4 "
           placeholder="Search"
           onChange={e => setQuery(e.target.value)}
           disabled={isLoading}
           style={{ width: 300 }}
+          prefix={<SearchOutlined className="mr-2" />}
+          addonAfter={null}
         />
       )}
 
-      {isLoading && !filtered ? <h1>Loading...</h1> : content}
+      {isLoading ? <h1>Loading...</h1> : content}
 
-      {hasFooter && (
+      {/* {hasFooter && (
         <div className="flex gap-2 justify-end mr-4 border-none py-2">
-          <button
-            onClick={hideModal}
-            className="border-[1px] py-1 px-3 border-black rounded-sm"
-          >
-            Cancel
-          </button>
-          <button className="bg-[#335c9a] py-0 border-none text-white px-4 rounded-sm">
-            <span>Save</span>
-          </button>
+          <Button onClick={hideModal} label="Cancel" type="default" />
+          <Button onClick={hideModal} label="Save" type="primary" />
         </div>
-      )}
+      )} */}
     </AntModal>
   );
 };
 
-export default ModalComponent;
+export default Modal;

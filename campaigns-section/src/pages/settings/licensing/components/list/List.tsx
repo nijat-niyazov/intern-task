@@ -1,6 +1,10 @@
+import { nameFixer } from '~/pages/settings/licensing/utils/nameFixer';
+
 const List = ({ data }: { data: any }) => {
+  
   return (
-    <ul className="my-6 grid gap-2">
+    
+    <ul className="flex flex-col">
       {Object.entries(data).map(
         ([key, value], index) =>
           key !== 'logo' && (
@@ -10,13 +14,16 @@ const List = ({ data }: { data: any }) => {
                 borderBottomWidth:
                   index === Object.entries(data).length - 1 ? '0px' : '1px',
               }}
-              className="flex px-2 items-center gap-3  border-gray-200 pb-2 text-[#65676b] font-extralight text-ellipsis "
+              className="flex p-2 items-center justify-between text-md border-gray-300  text-[#65676b] font-extralight text-ellipsis "
             >
-              <span>{key.split('_').join(' ')}:</span>
-              <span>{value as string}</span>
+              <span>{nameFixer(key.split('_').join(' '))}:</span>
+              <span className={key === 'expires' && 'text-red-500'}>
+                {value as string}
+              </span>
             </li>
           )
       )}
+  
     </ul>
   );
 };

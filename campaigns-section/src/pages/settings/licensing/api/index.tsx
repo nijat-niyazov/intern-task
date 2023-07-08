@@ -1,19 +1,19 @@
 import axios from 'axios';
+import { dateFormatter } from '../utils';
+import {
+  alertsEndPoint,
+  downloadInvoiceEndpoint,
+  uploadPhotoEndpoint,
+} from './endpoints';
 
-const userToken =
-  '8adb994af13036ca54d51e777bcb25b53bb4827cfed87f544b5152b61c2e629d';
+export const userToken =
+  '575074ab26c424a556804b93fc6e90c6abfee6835df55bc77d75125609d492d2';
 const apiUrl = 'https://apinew.testqmeter.net/api/v1/';
 
-export const smsPriceEndpoint = 'core/sms-price-list/';
-export const balanceEndpoint = 'license/balance/';
-export const licenceInUseEndpoint = 'license/license-in-use/';
-export const alertsEndPoint = '/license/manage-alert/';
-export const paymentHistoryEndpoint = 'license/all-history/?page_size=10';
-
-const testUrl = axios.create({
+export const testUrl = axios.create({
   baseURL: apiUrl,
   headers: {
-    Authorization: `Token ${userToken} `,
+    Authorization: `Token ${userToken}`,
   },
 });
 
@@ -25,5 +25,54 @@ export const fetchData = async (cacheKey: string) => {
     return res.data;
   } catch (err) {
     console.log(err);
+  }
+};
+
+export const updateAlert = async (values: {
+  sms_alert: string | number;
+  feedback_alert: string | number;
+}) => {
+  try {
+    const res =await testUrl.post(alertsEndPoint, values);
+    return res.data
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const uploadImage = async (formData: any) => {
+  try {
+    const res = await testUrl.patch(uploadPhotoEndpoint, formData);
+
+    return res.data;
+  } catch (error) {
+    console.error('Error uploading image:', error);
+  }
+};
+
+export const handleDownloadPDF = async (endPoint: string) => {
+  try {
+    const response = await testUrl.get(downloadInvoiceEndpoint + endPoint, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const url = response.data.file;
+
+    const link = document.createElement('a');
+    link.href = url;
+
+    link.setAttribute(
+      'download',
+      'Device History for ' + dateFormatter(new Date())
+    );
+
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+  } catch (error) {
+    console.error('Failed to download PDF:', error);
   }
 };

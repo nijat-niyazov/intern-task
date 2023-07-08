@@ -21,7 +21,7 @@ const Info = () => {
             className="w-10 h-10"
           />
           <p className="text-4xl">{smsInfo.totalSmsCount}</p>
-          <p className="text-10">Total sms count</p>
+          <p className="text-md">Total sms count</p>
         </div>
 
         <div className="flex items-center justify-between p-2">

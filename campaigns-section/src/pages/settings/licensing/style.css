@@ -15,6 +15,9 @@
   background-color: #335c9a;
   padding: 10px 30px;
   color: white !important;
+  border-radius: 5px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 
 .ant-modal-close {

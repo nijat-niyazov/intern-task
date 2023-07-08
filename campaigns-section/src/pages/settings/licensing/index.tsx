@@ -1,105 +1,116 @@
-import { Card, InputNumber, Select, UploadProps, message } from 'antd';
-import Table from 'antd/es/table';
-import Column from 'antd/es/table/Column';
-import Dragger from 'antd/es/upload/Dragger';
-import { useSelector } from 'react-redux';
 import useSWR from 'swr';
-import { IconOfAbout, IconOfPayPal, IconOfWarning } from '~/assets/icons';
-import photoUpload from '~/assets/photo.png';
-import { isModalOpened, modalType } from '~/redux/licenseModalSlice';
-import {
-  alertsEndPoint,
-  balanceEndpoint,
-  fetchData,
-  licenceInUseEndpoint,
-  smsPriceEndpoint,
-} from './api';
-import { CardBody, CardFooter, CardHeader } from './components/card';
-import List from './components/list/List';
-import ModalComponent from './components/modal';
+import { fetchData } from './api';
+import { balanceEndpoint } from './api/endpoints';
+import About from './cards/about';
+import DeviceLicense from './cards/device';
+import WebFeedBack from './cards/feedback';
+import Payment from './cards/payment';
+import SmsBalance from './cards/smsbalance';
+import Modals from './components/modal/modalTypes';
 import './style.css';
-import { paymentHistoryColumns } from './utils/constants';
-import { DataType } from './utils/interfaces';
-
-const tableData: DataType[] = [
-  {
-    key: '1',
-    id: 1,
-    extended: '0 month',
-    device_account: '0 device',
-    type: 'icon',
-    purchase_date: '14-Jun-2023',
-    amount: 70,
-    status: ['Paid'],
-    actions: ['Download invoice'],
-  },
-];
-
-const props: UploadProps = {
-  name: 'file',
-  multiple: true,
-  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-  onChange(info) {
-    const { status } = info.file;
-    if (status !== 'uploading') {
-      console.log(info.file, info.fileList);
-    }
-    if (status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  onDrop(e) {
-    console.log('Dropped files', e.dataTransfer.files);
-  },
-};
 
 const Licensing = () => {
-  
   const { data: balanceData, isLoading: balanceIsLoading } = useSWR(
     balanceEndpoint,
     fetchData
   );
-
-  const onChange = (value: number) => console.log('changed', value);
-
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
 
   const company = balanceData?.company;
   const sms = balanceData?.sms_balance;
   const feedback = balanceData?.feedback;
   const device = balanceData?.device_licence;
 
-  const typeOfModal = useSelector(modalType);
-  const isModalOpen = useSelector(isModalOpened);
+  // const typeOfModal = useSelector(modalType);
+  // const isModalOpen = useSelector(isModalOpened);
+
+  // const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  // const [isLoading, setIsloading] = useState<boolean>(false);
+
+  // // const handleFileChange = async (
+  // //   event: React.ChangeEvent<HTMLInputElement>
+  // // ) => {
+  // //   const file = event.target.files?.[0];
+
+  // //   if (file) {
+  // //     setSelectedFile(file);
+
+  // //     const formData = new FormData();
+  // //     formData.append('logo', file);
+
+  // //     try {
+  // //       setIsloading(true);
+  // //       const data = await uploadImage(formData);
+  // //       if (data) setSelectedFile(data);
+  // //     } catch (error) {
+  // //       setIsloading(false);
+  // //       console.error('Error uploading image:', error);
+  // //     }
+  // //   }
+  // // };
+
+  // const props: UploadProps = {
+  //   name: 'file',
+  //   action: 'https://apinew.testqmeter.net/api/v1/auth/company-edit/',
+  //   headers: {
+  //     authorization: `Token ${userToken}`,
+  //   },
+  //   method: 'PATCH',
+  //   onChange(info) {
+  //     console.log(info);
+  //     setSelectedFile(info.file.originFileObj);
+  //     // const fetch = async()
+  //   },
+  // };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 w-full p-4 gap-x-2 gap-y-2">
+    <div className="grid gap-2 w-full">
       {!balanceIsLoading && (
         <>
-          {/* About ✅  */}
-          <div className="md:row-span-2">
-            <Card className="px-4 ">
+          <About data={company} />
+          <SmsBalance data={sms} />
+          <DeviceLicense data={device} />
+          <WebFeedBack data={feedback} />
+          <Payment />
+          <Modals />
+        </>
+      )}
+    </div>
+  );
+};
+
+export default Licensing;
+
+{
+  /* About ✅  */
+}
+{
+  /* <div className="md:row-span-2 ">
+            <Card className="px-4 h-full pb-2">
               <CardHeader
                 title="About company"
                 icon={<IconOfAbout />}
                 openModalType="alert"
               />
 
-              <Dragger {...props}>
-                <div className="grid gap-2 place-items-center py-10">
-                  <img src={photoUpload} alt="upload_photo" width={30} />
-
-                  <p className="ant-upload-hint px-4">
-                    Try dropping file here, or click to select file to upload
-                  </p>
+              <CardBody>
+                <div className="w-1/3 m-auto">
+                  <img
+                    className={`w-full object-contain h-full ${
+                      isLoading
+                        ? 'transition-opacity opacity-20'
+                        : 'opacity-100'
+                    } duration-200 h-40`}
+                    src={selectedFile?.logo ?? company?.logo}
+                    onLoad={() => setIsloading(false)}
+                  />
                 </div>
-              </Dragger>
+                <input
+                  disabled={isLoading}
+                  type="file"
+                  onChange={handleFileChange}
+                />
 
-              <CardBody listDataOf="aboutData">
+
                 <List data={company} />
               </CardBody>
             </Card>
@@ -114,12 +125,18 @@ const Licensing = () => {
                 isModalOpen={isModalOpen}
               />
             )}
-          </div>
-          {/* About ✅  */}
+          </div> */
+}
+{
+  /* About ✅  */
+}
 
-          {/* Sms */}
-          <div>
-            <Card className="px-4 h-full">
+{
+  /* Sms */
+}
+{
+  /* <div>
+            <Card className="px-4 h-full pb-2">
               <CardHeader
                 title="SMS balance:"
                 icon={<IconOfWarning />}
@@ -142,7 +159,7 @@ const Licensing = () => {
                 </div>
               </CardBody>
 
-              <CardFooter buttons={['Purchase']} icon={<IconOfPayPal />} />
+              
             </Card>
 
             {typeOfModal && typeOfModal === 'sms' && (
@@ -155,46 +172,63 @@ const Licensing = () => {
                 isModalOpen={isModalOpen}
               />
             )}
-          </div>
-          {/* Sms */}
+          </div> */
+}
+{
+  /* Sms */
+}
 
-          {/* Device  ✅  */}
-          <div className="md:row-span-2 ">
-            <Card className="px-4 h-full">
+{
+  /* Device  ✅  */
+}
+{
+  /* <div className="md:row-span-2 ">
+            <Card className="px-4 h-full pb-2">
               <CardHeader title="Device Licence information" />
 
-              <CardBody listDataOf="deviceData">
+              <CardBody>
                 <List data={device} />
               </CardBody>
               <CardFooter
                 buttons={['License in use', '⬆ Upgrade License']}
-                openModalType="manage"
+                openModalType={'manage'}
               />
             </Card>
 
-            {typeOfModal && typeOfModal === 'manage' && (
-              <ModalComponent
-                title="Manage your online devices"
-                width={'80%'}
-                searchable
-                hasFooter={false}
-                cacheKey={licenceInUseEndpoint}
-                isModalOpen={isModalOpen}
-              />
-            )}
-          </div>
-          {/* Device  ✅  */}
+            {typeOfModal &&
+              (typeOfModal === 'manage') | (typeOfModal === 'upgrade') && (
+                <ModalComponent
+                  title={
+                    typeOfModal === 'manage'
+                      ? 'Manage your online devices'
+                      : 'Upgrade your license'
+                  }
+                  width={'80%'}
+                  searchable
+                  hasFooter={false}
+                  cacheKey={licenceInUseEndpoint}
+                  isModalOpen={isModalOpen}
+                />
+              )}
+          </div> */
+}
+{
+  /* Device  ✅  */
+}
 
-          {/* web feedback */}
-          <div>
-            <Card className="px-4 h-full">
+{
+  /* web feedback */
+}
+{
+  /* <div>
+            <Card className="px-4 h-full pb-2">
               <CardHeader
                 title="Web feedback balance:"
                 balance={feedback?.balance}
               />
 
               <CardBody>
-                <div className="grid my-5 gap-1">
+                <div className="grid gap-1">
                   <div className="flex justify-between items-start font-light">
                     <span className=" text-[14px]">Last Payment</span>
                     <span>2021-01-01</span>
@@ -205,7 +239,7 @@ const Licensing = () => {
                     <Select
                       defaultValue="1000"
                       style={{ width: 240 }}
-                      onChange={handleChange}
+                      onChange={handleSelect}
                       options={[
                         { value: '1000', label: '1,000 feedback - $100' },
                         { value: '5000', label: '5,000 feedback - $500' },
@@ -220,11 +254,17 @@ const Licensing = () => {
 
               <CardFooter buttons={['Purchase']} icon={<IconOfPayPal />} />
             </Card>
-          </div>
-          {/* web feedback */}
+          </div> */
+}
+{
+  /* web feedback */
+}
 
-          {/* Table */}
-          <div className="md:col-span-3">
+{
+  /* Table */
+}
+{
+  /* <div className="md:col-span-3">
             <Card className="px-4">
               <CardHeader title="Payment history" border={false} />
 
@@ -237,10 +277,5 @@ const Licensing = () => {
               </CardBody>
             </Card>
           </div>
-        </>
-      )}
-    </div>
-  );
-};
-
-export default Licensing;
+        )} */
+}
