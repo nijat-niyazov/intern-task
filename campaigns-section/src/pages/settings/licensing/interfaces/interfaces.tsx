@@ -1,4 +1,4 @@
-interface DataType {
+interface PaymentDataType {
   account_count: null | string | number;
   created_at: string;
   expire_date: string | null;
@@ -10,4 +10,17 @@ interface DataType {
   type: string;
 }
 
-export type { DataType };
+interface LicenseManageDataType {
+  // key: React.Key | string;
+  name: string;
+  username: string;
+  branch: string;
+  last_login: string | Date;
+  status: string[] | string;
+  actions?: null;
+  id: number | string;
+  any_problem: boolean;
+  is_offline_mode: boolean;
+}
+
+export type { LicenseManageDataType, PaymentDataType };

@@ -1,6 +1,6 @@
 import { DeviceType, FeedbackType, SmsType } from '~/assets/icons';
 import { handleDownloadPDF } from '../api';
-import { currencyFormatter, dateFormatter } from '../utils';
+import { currencyFormatter, dateFormatter, nameFixer } from '../utils';
 
 const paymentHistoryColumns = [
   {
@@ -20,7 +20,9 @@ const paymentHistoryColumns = [
     key: 'extended',
     width: '8%',
     render: (currentData: string | null) => {
-      return <span> {currentData == null ? '0 month' : ''}</span>;
+      console.log({ currentData });
+
+      return <span> {currentData == null ? 0 : currentData} month</span>;
     },
   },
   {
@@ -34,7 +36,7 @@ const paymentHistoryColumns = [
         <span>
           {currentData == null
             ? '0 device'
-            : currentData + 'device' + (currentData >= 0 ? 's' : '')}
+            : currentData + ' device' + (currentData >= 0 ? 's' : '')}
         </span>
       );
     },
@@ -121,34 +123,41 @@ const licenseManageColumns = [
     dataIndex: 'id',
     key: 'id',
     width: '5%',
+    render: (currentData: any, wholeData: any, i: number) => {
+      return <span> {i + 1}</span>;
+    },
   },
   {
     ellipsis: true,
     title: 'Device name',
     dataIndex: 'name',
-    key: 'device_name',
-    sorter: (a, b) => a.name - b.name,
+    key: 'name',
+    sorter: (a: any, b: any) => a.name.localeCompare(b.name),
   },
   {
     ellipsis: true,
     title: 'Username',
     dataIndex: 'username',
     key: 'username',
-    sorter: (a, b) => a.name - b.name,
+    sorter: (a: any, b: any) => a.username.localeCompare(b.username),
   },
   {
     ellipsis: true,
     title: 'Branch Name',
     dataIndex: 'branch',
-    key: 'branch_name',
-    sorter: (a, b) => a.branch - b.branch,
+    key: 'name',
+    sorter: (a: any, b: any) => a.branch.localeCompare(b.branch),
   },
   {
     ellipsis: true,
     title: 'Last login',
     dataIndex: 'last_login',
     key: 'last_login',
-    sorter: (a, b) => a.username - b.username,
+    sorter: (a: { last_login: string }, b: { last_login: string }) =>
+      new Date(a.last_login).getTime() - new Date(b.last_login).getTime(),
+    render: (currentData: Date) => {
+      return <span>{dateFormatter(currentData)}</span>;
+    },
   },
 
   {
@@ -159,12 +168,16 @@ const licenseManageColumns = [
     align: 'center',
 
     render: (_: null, data: any) => (
-      <div className="bg-[#bbb]  text-white inline-block p-1 text-xs rounded-sm">
+      <div
+        className={` ${
+          data.any_problem ? 'bg-green-600' : 'bg-[#bbb]'
+        }   text-white inline-block p-1 text-xs rounded-sm`}
+      >
         <span>
-          {data.status + ', Offline mode: ' + (data.mode ? ' on' : ' off')}
+          {nameFixer(data.status) +
+            ', Offline mode: ' +
+            (data.any_problem ? ' on' : ' off')}
         </span>
-        {/* <span>{'Offline mode:' }</span>
-        <span>{data.mode ? ' on' : ' off'}</span> */}
       </div>
     ),
   },
@@ -185,10 +198,11 @@ const licenseManageColumns = [
     ),
   },
   {
+    ellipsis: true,
     align: 'center',
     title: 'Actions',
     key: 'actions',
-    width: '6%',
+    width: '10%',
     render: () => (
       <div className="bg-[#8dcadf] inline-block p-2 rounded-sm">
         <svg

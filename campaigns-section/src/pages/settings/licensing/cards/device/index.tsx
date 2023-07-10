@@ -2,7 +2,7 @@ import { Card } from 'antd';
 import { useDispatch } from 'react-redux';
 import { handleModalType, handleShowModal } from '~/redux/licenseModalSlice';
 import Button from '../../components/button';
-import { CardHeader } from '../../components/card';
+import CardHeader  from '../../components/cardHeader';
 import List from '../../components/list/List';
 
 const DeviceLicense = ({ data }: { data: any }) => {
@@ -32,7 +32,7 @@ const DeviceLicense = ({ data }: { data: any }) => {
             type="default"
           />
           <Button
-            onClick={handleClick('upgrade')}
+            onClick={handleClick('update')}
             label="Upgrade License"
             type="primary"
           />

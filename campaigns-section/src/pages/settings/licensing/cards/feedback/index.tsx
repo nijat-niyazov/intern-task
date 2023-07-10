@@ -1,18 +1,20 @@
 import { Card, Select } from 'antd';
 import { IconOfPayPal } from '~/assets/icons';
-import { CardFooter, CardHeader } from '../../components/card';
+
+import CardHeader  from '../../components/cardHeader';
+import Button from '../../components/button';
 
 const WebFeedBack = ({ data }: { data: any }) => {
   const handleSelect = (value: string) => console.log(`selected ${value}`);
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div>
       <Card className="px-4 py-2 h-full">
         <CardHeader title="Web feedback balance:" dynamicValue={data.balance} />
 
-        <div className="grid mt-5 gap-1">
+        <div className="grid my-5 gap-1">
           <div className="flex justify-between items-start font-light">
             <span className=" text-[14px]">Last Payment</span>
             <span>{data.last_payment}</span>
@@ -34,7 +36,10 @@ const WebFeedBack = ({ data }: { data: any }) => {
           </div>
         </div>
 
-        <CardFooter buttons={['Purchase']} icon={<IconOfPayPal />} />
+        <div className="flex gap-2 justify-end">
+          <IconOfPayPal />
+          <Button label="Purchase" type="primary" />
+        </div>
       </Card>
     </div>
   );

@@ -7,7 +7,9 @@ import {
 } from './endpoints';
 
 export const userToken =
-  '575074ab26c424a556804b93fc6e90c6abfee6835df55bc77d75125609d492d2';
+  'a4e98b9bfe5249fff6d00bd618b30fdd2d6d386dcee43c7abf9db088eda520de';
+// export const userToken =
+//   '575074ab26c424a556804b93fc6e90c6abfee6835df55bc77d75125609d492d2';
 const apiUrl = 'https://apinew.testqmeter.net/api/v1/';
 
 export const testUrl = axios.create({
@@ -17,6 +19,18 @@ export const testUrl = axios.create({
   },
 });
 
+export const fetchFilteredData = async (cacheKey: string) => {
+  console.log(cacheKey);
+  
+  try {
+    const res = await testUrl.get(cacheKey);
+    if (res.status !== 200) throw new Error('went wrong');
+
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
 export const fetchData = async (cacheKey: string) => {
   try {
     const res = await testUrl.get(cacheKey);
@@ -76,3 +90,7 @@ export const handleDownloadPDF = async (endPoint: string) => {
     console.error('Failed to download PDF:', error);
   }
 };
+
+export const createOrder = async()=>[
+  
+]

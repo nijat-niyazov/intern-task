@@ -9,7 +9,7 @@ const SideBar = ({ collapsed }: { collapsed: boolean }) => {
   
   return (
     <Sider
-      className="max-h-[1300px]"
+      className="max-h-[2500px]"
       trigger={null}
       collapsible
       collapsed={collapsed}

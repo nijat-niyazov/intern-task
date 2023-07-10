@@ -1,12 +1,15 @@
 import { Card } from 'antd';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { IconOfAbout } from '~/assets/icons';
-import { CardHeader } from '../../components/card';
+import { uploadImage } from '../../api';
+import CardHeader from '../../components/cardHeader';
 import List from '../../components/list/List';
+import downloadPhoto from '../../../../../assets/photo.png'
 
 const About = ({ data }: { data: any }) => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFile, setSelectedFile] = useState<string | null>(null);
   const [isLoading, setIsloading] = useState<boolean>(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -14,15 +17,13 @@ const About = ({ data }: { data: any }) => {
     const file = event.target.files?.[0];
 
     if (file) {
-      setSelectedFile(file);
-
       const formData = new FormData();
       formData.append('logo', file);
 
       try {
         setIsloading(true);
         const data = await uploadImage(formData);
-        if (data) setSelectedFile(data);
+        if (data) setSelectedFile(data.logo);
       } catch (error) {
         setIsloading(false);
         console.error('Error uploading image:', error);
@@ -31,7 +32,7 @@ const About = ({ data }: { data: any }) => {
   };
 
   return (
-    <div className="md:row-span-2 ">
+    <div className="md:row-span-2 w-full">
       <Card className="px-4 py-2 h-full">
         <CardHeader
           title="About company"
@@ -39,17 +40,29 @@ const About = ({ data }: { data: any }) => {
           openModalType="alert"
         />
 
-        <div className="m-auto w-1/3 mt-5">
-          <img
-            className={`w-full object-contain h-full ${
-              isLoading ? 'transition-opacity opacity-20' : 'opacity-100'
-            } duration-200 h-40`}
-            src={selectedFile?.logo ?? data?.logo}
-            onLoad={() => setIsloading(false)}
-          />
-        </div>
+          <div
+            onClick={() => inputRef?.current?.click()}
+            className="w-[250px] m-auto cursor-pointer transition-opacity duration-300 hover:opacity-70 relative group mt-5"
+          >
+            
+            <img
+              className={`w-full object-contain h-full ${
+                isLoading ? 'transition-opacity opacity-20' : 'opacity-100'
+              } duration-200 aspect-video `}
+              src={selectedFile || data?.logo}
+              onLoad={() => setIsloading(false)}
+            />
 
-        {/* <input disabled={isLoading} type="file" onChange={handleFileChange} /> */}
+            <img src={downloadPhoto} width={40} className='absolute right-1/2 bottom-1/2 translate-x-1/2 translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+
+            <input
+              disabled={isLoading}
+              type="file"
+              onChange={handleFileChange}
+              ref={inputRef}
+              className="file-input hidden"
+            />
+        </div>
 
         <div className="mt-5">
           <List data={data} />

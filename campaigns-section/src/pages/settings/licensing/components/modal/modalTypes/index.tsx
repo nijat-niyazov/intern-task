@@ -33,6 +33,7 @@ const Modals = () => {
           title="Manage your online devices"
           cacheKey={licenceInUseEndpoint}
           searchable
+          width="80%"
           // children={<LicenseManage />}
         />
       )) ||

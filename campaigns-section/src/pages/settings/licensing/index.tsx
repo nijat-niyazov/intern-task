@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import useSWR from 'swr';
 import { fetchData } from './api';
 import { balanceEndpoint } from './api/endpoints';
@@ -7,6 +8,7 @@ import WebFeedBack from './cards/feedback';
 import Payment from './cards/payment';
 import SmsBalance from './cards/smsbalance';
 import Modals from './components/modal/modalTypes';
+
 import './style.css';
 
 const Licensing = () => {
@@ -63,18 +65,18 @@ const Licensing = () => {
   // };
 
   return (
-    <div className="grid gap-2 w-full">
-      {!balanceIsLoading && (
-        <>
-          <About data={company} />
-          <SmsBalance data={sms} />
-          <DeviceLicense data={device} />
-          <WebFeedBack data={feedback} />
-          <Payment />
-          <Modals />
-        </>
-      )}
-    </div>
+    !balanceIsLoading && (
+      <div className="flex flex-col md:grid gap-2 w-full">
+        <About data={company} />
+        <SmsBalance data={sms} />
+        <DeviceLicense data={device} />
+        <WebFeedBack data={feedback} />
+        <Payment />
+        <Toaster position="top-center" />
+
+        <Modals />
+      </div>
+    )
   );
 };
 

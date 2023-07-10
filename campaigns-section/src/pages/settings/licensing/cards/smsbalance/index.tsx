@@ -2,11 +2,11 @@ import { Card, Input } from 'antd';
 import { useState } from 'react';
 import { IconOfPayPal, IconOfWarning } from '~/assets/icons';
 import Button from '../../components/button';
-import { CardHeader } from '../../components/card';
+import CardHeader from '../../components/cardHeader';
 
 const SmsBalance = ({ data: balance }: { data: any }) => {
   // const onChange = (value: number) => console.log('changed', value);
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(10);
 
   const onChange = (e: any) => {
     if (e !== '') {
@@ -29,8 +29,7 @@ const SmsBalance = ({ data: balance }: { data: any }) => {
             <span className="text-[14px]">Add Balance</span>
             <Input
               placeholder="Enter amount (USD)"
-              min={1}
-              max={10}
+              min={10}
               type="number"
               value={value}
               onChange={onChange}
@@ -43,11 +42,7 @@ const SmsBalance = ({ data: balance }: { data: any }) => {
 
         <div className="flex gap-2 justify-end">
           <IconOfPayPal />
-          <Button
-            disabled={value > 10 || value < 1}
-            label="Purchase"
-            type="primary"
-          />
+          <Button disabled={value < 10} label="Purchase" type="primary" />
         </div>
       </Card>
     </div>

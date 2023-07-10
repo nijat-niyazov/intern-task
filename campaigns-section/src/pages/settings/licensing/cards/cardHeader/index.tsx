@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import useHandleModal from '../../modal/useHandleModal';
+import useHandleModal from '../../customHooks/useHandleModal';
 
 interface CardHeaderProps {
   title: string;
@@ -16,7 +16,7 @@ const CardHeader: FC<CardHeaderProps> = ({
   icon,
   dynamicValue,
   openModalType,
-  border=true,
+  border = true,
 }) => {
   let handleClick;
 

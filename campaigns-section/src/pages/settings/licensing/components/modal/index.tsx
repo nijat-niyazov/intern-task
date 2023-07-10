@@ -5,12 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import useSWR from 'swr';
 import { handleShowModal, isModalOpened } from '~/redux/licenseModalSlice';
 import { fetchData } from '../../api';
-import {
-  AlertContent,
-  LicenseManage,
-  LicenseUpdate,
-  SmsContent,
-} from './modalContents';
+import { useDebouncedValue } from '../../customHooks';
+import { AlertContent, LicenseManage, SmsContent } from './modalContents';
+import LicenseUgrade from './modalContents/LicenseUpgrade';
 
 interface ModalProps {
   title: string;
@@ -24,14 +21,16 @@ interface ModalProps {
 
 const Modal: FC<ModalProps> = ({
   title,
-  // width,
+  width,
   hasFooter = false,
   cacheKey,
   searchable = false,
-  // children,
 }) => {
   const [query, setQuery] = useState<string>('');
+  // const [debounced,setDebounced] = useState<string>('')
   const dispatch = useDispatch();
+
+  const debounced = useDebouncedValue(query);
 
   const hideModal = () => {
     setQuery('');
@@ -42,7 +41,7 @@ const Modal: FC<ModalProps> = ({
 
   const { data: modalData, isLoading } = useSWR(
     isModalOpen ? cacheKey : null,
-    fetchData
+    fetchData 
   );
 
   let content;
@@ -52,24 +51,31 @@ const Modal: FC<ModalProps> = ({
   }
 
   if (cacheKey?.includes('sms')) {
-    content = <SmsContent data={modalData} query={query} />;
+    content = <SmsContent data={modalData} query={debounced} />;
   }
 
   if (cacheKey?.includes('use')) {
-    content = <LicenseManage data={modalData} />;
+    content = <LicenseManage data={modalData} query={debounced} />;
   }
 
   if (cacheKey?.includes('upgrade')) {
-    content = <LicenseUpdate />;
+    content = <LicenseUgrade />;
   }
 
   return (
     <AntModal
-      title={title}
+      title={
+        <div className="flex justify-between">
+          <span>{title}</span>
+          <button onClick={hideModal}>X</button>
+        </div>
+      }
       open={isModalOpen}
       onCancel={hideModal}
       footer={null}
-      // width={width}
+      centered
+      width={width}
+      closable={false}
       // destroyOnClose={true}
     >
       {searchable && (
@@ -86,13 +92,7 @@ const Modal: FC<ModalProps> = ({
       )}
 
       {isLoading ? <h1>Loading...</h1> : content}
-
-      {/* {hasFooter && (
-        <div className="flex gap-2 justify-end mr-4 border-none py-2">
-          <Button onClick={hideModal} label="Cancel" type="default" />
-          <Button onClick={hideModal} label="Save" type="primary" />
-        </div>
-      )} */}
+      {/* {content} */}
     </AntModal>
   );
 };
