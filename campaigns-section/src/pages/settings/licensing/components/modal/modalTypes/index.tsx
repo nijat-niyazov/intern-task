@@ -7,26 +7,16 @@ import {
   smsPriceEndpoint,
 } from '../../../api/endpoints';
 
-const Modals = () => {
+const ModalTypes = () => {
   const typeOfModal = useSelector(modalType);
 
   if (typeOfModal) {
     return (
       (typeOfModal === 'alert' && (
-        <Modal
-          title="Manage alerts"
-          hasFooter
-          cacheKey={alertsEndPoint}
-          // children={<AlertContent />}
-        />
+        <Modal title="Manage alerts" hasFooter cacheKey={alertsEndPoint} />
       )) ||
       (typeOfModal === 'sms' && (
-        <Modal
-          title="Sms Price"
-          cacheKey={smsPriceEndpoint}
-          searchable
-          // children={<SmsContent />}
-        />
+        <Modal title="Sms Price" cacheKey={smsPriceEndpoint} searchable />
       )) ||
       (typeOfModal === 'manage' && (
         <Modal
@@ -34,7 +24,6 @@ const Modals = () => {
           cacheKey={licenceInUseEndpoint}
           searchable
           width="80%"
-          // children={<LicenseManage />}
         />
       )) ||
       (typeOfModal === 'upgrade' && (
@@ -44,4 +33,4 @@ const Modals = () => {
   }
 };
 
-export default Modals;
+export default ModalTypes;

@@ -1,7 +1,7 @@
 import { Table } from 'antd';
 import Column from 'antd/es/table/Column';
 import useSWR from 'swr';
-import { fetchFilteredData } from '../../../api';
+import { fetchData, fetchFilteredData } from '../../../api';
 import { licenceInUseEndpoint } from '../../../api/endpoints';
 import { licenseManageColumns } from '../../../constants/constants';
 
@@ -122,7 +122,7 @@ import { licenseManageColumns } from '../../../constants/constants';
 const LicenseManage = ({ data, query }: { data: any; query: string }) => {
   const { data: modalData } = useSWR(
     query ? licenceInUseEndpoint + '?username=' + query : null,
-    fetchFilteredData
+    fetchData
   );
 
   return (
@@ -136,6 +136,7 @@ const LicenseManage = ({ data, query }: { data: any; query: string }) => {
           Filtered count: {modalData?.filtered_count ?? data?.filtered_count}
         </span>
       </div>
+
       <Table dataSource={modalData?.data ?? data?.data} pagination={false}>
         {licenseManageColumns.map((col: any, i: number) => {
           return <Column key={i} {...col} />;

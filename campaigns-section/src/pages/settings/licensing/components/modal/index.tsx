@@ -22,15 +22,15 @@ interface ModalProps {
 const Modal: FC<ModalProps> = ({
   title,
   width,
-  hasFooter = false,
+  // hasFooter = false,
   cacheKey,
   searchable = false,
 }) => {
   const [query, setQuery] = useState<string>('');
-  // const [debounced,setDebounced] = useState<string>('')
-  const dispatch = useDispatch();
-
+  
   const debounced = useDebouncedValue(query);
+  
+  const dispatch = useDispatch();
 
   const hideModal = () => {
     setQuery('');
@@ -41,7 +41,7 @@ const Modal: FC<ModalProps> = ({
 
   const { data: modalData, isLoading } = useSWR(
     isModalOpen ? cacheKey : null,
-    fetchData 
+    fetchData
   );
 
   let content;

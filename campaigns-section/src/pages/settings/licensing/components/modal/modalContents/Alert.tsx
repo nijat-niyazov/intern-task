@@ -23,8 +23,6 @@ const AlertContent = ({ data }: { data: any }) => {
 
   const handleCloseModal = () => dispatch(handleShowModal(false));
 
-  // const { data: modalData, isLoading } = useSWR(alertsEndPoint, fetchData);
-
   return (
     <div>
       {data && (

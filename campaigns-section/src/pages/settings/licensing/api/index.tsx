@@ -21,7 +21,7 @@ export const testUrl = axios.create({
 
 export const fetchFilteredData = async (cacheKey: string) => {
   console.log(cacheKey);
-  
+
   try {
     const res = await testUrl.get(cacheKey);
     if (res.status !== 200) throw new Error('went wrong');
@@ -31,6 +31,7 @@ export const fetchFilteredData = async (cacheKey: string) => {
     console.log(err);
   }
 };
+
 export const fetchData = async (cacheKey: string) => {
   try {
     const res = await testUrl.get(cacheKey);
@@ -47,8 +48,8 @@ export const updateAlert = async (values: {
   feedback_alert: string | number;
 }) => {
   try {
-    const res =await testUrl.post(alertsEndPoint, values);
-    return res.data
+    const res = await testUrl.post(alertsEndPoint, values);
+    return res.data;
   } catch (err) {
     console.log(err);
   }
@@ -90,7 +91,3 @@ export const handleDownloadPDF = async (endPoint: string) => {
     console.error('Failed to download PDF:', error);
   }
 };
-
-export const createOrder = async()=>[
-  
-]
