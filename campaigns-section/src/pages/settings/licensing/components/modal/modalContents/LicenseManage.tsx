@@ -1,7 +1,7 @@
 import { Table } from 'antd';
 import Column from 'antd/es/table/Column';
 import useSWR from 'swr';
-import { fetchData, fetchFilteredData } from '../../../api';
+import { fetchData } from '../../../api';
 import { licenceInUseEndpoint } from '../../../api/endpoints';
 import { licenseManageColumns } from '../../../constants/constants';
 
