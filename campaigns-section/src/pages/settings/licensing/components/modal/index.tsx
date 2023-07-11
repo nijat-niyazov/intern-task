@@ -77,6 +77,7 @@ const Modal: FC<ModalProps> = ({
       width={width}
       closable={false}
       // destroyOnClose={true}
+      className='relative'
     >
       {searchable && (
         <Input
@@ -90,6 +91,7 @@ const Modal: FC<ModalProps> = ({
           addonAfter={null}
         />
       )}
+
 
       {isLoading ? <h1>Loading...</h1> : content}
       {/* {content} */}

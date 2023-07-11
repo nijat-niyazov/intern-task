@@ -1,5 +1,5 @@
 import { Card, Input } from 'antd';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { IconOfPayPal, IconOfWarning } from '~/assets/icons';
 import Button from '../../components/button';
 import CardHeader from '../../components/cardHeader';
@@ -49,4 +49,4 @@ const SmsBalance = ({ data: balance }: { data: any }) => {
   );
 };
 
-export default SmsBalance;
+export default memo(SmsBalance);

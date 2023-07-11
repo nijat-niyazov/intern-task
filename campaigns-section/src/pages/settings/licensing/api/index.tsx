@@ -19,16 +19,74 @@ export const testUrl = axios.create({
   },
 });
 
-export const fetchFilteredData = async (cacheKey: string) => {
-  console.log(cacheKey);
+// export const fetchFilteredData = async (cacheKey: string) => {
+//   if (cacheKey&&cacheKey.length===2) {
+//     const endpoint = cacheKey[0];
 
-  try {
-    const res = await testUrl.get(cacheKey);
-    if (res.status !== 200) throw new Error('went wrong');
+//     const { username, name, ids } = cacheKey[1];
 
-    return res.data;
-  } catch (err) {
-    console.log(err);
+//     const params = {
+//       username,
+//       name,
+//       ids,
+//     };
+
+//     !username && delete params.username;
+//     !name && delete params.name;
+//     !ids && delete params.ids;
+
+//     try {
+//       const res = await testUrl.get(endpoint, {
+//         params,
+
+//         paramsSerializer: {
+//           indexes: null,
+//           // ? this is for handling if there is array param like ids = [1,2,3] it will be userid=1&userid=2&userid=3
+//         },
+//       });
+//       if (res.status !== 200) throw new Error('went wrong');
+
+//       return res.data;
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   }
+// };
+
+export const fetchFilteredData = async (
+  cacheKey: [string, { username?: string; name?: string; ids?: string[] }]
+  // ! first element is string, others are params with their params
+) => {
+  if (cacheKey && cacheKey.length === 2) {
+    const endpoint = cacheKey[0];
+
+    const { username, name, ids } = cacheKey[1];
+
+    const params = {
+      username,
+      name,
+      ids,
+    };
+
+    !username && delete params.username;
+    !name && delete params.name;
+    !ids && delete params.ids;
+
+    try {
+      const res = await testUrl.get(endpoint, {
+        params,
+
+        paramsSerializer: {
+          indexes: null,
+        },
+      });
+
+      if (res.status !== 200) throw new Error('Something went wrong');
+
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
   }
 };
 

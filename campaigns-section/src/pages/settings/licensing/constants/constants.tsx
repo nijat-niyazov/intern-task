@@ -20,7 +20,6 @@ const paymentHistoryColumns = [
     key: 'extended',
     width: '8%',
     render: (currentData: string | null) => {
-      console.log({ currentData });
 
       return <span> {currentData == null ? 0 : currentData} month</span>;
     },
@@ -166,6 +165,7 @@ const licenseManageColumns = [
     dataIndex: ['status', 'is_offline_mode'],
     key: 'status',
     align: 'center',
+    width: '17%',
 
     render: (_: null, data: any) => (
       <div
