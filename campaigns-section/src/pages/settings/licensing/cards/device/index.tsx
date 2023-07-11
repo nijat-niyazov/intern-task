@@ -33,7 +33,7 @@ const DeviceLicense = ({ data }: { data: any }) => {
             type="default"
           />
           <Button
-            onClick={handleClick('update')}
+            onClick={handleClick('upgrade')}
             label="Upgrade License"
             type="primary"
           />

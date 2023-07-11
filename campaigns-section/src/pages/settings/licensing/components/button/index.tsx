@@ -16,13 +16,16 @@ const Button = ({
 }) => {
   let className;
 
-  if (type === 'default') {
-    className = 'border-[1px] border-gray-300 rounded-sm disabled:opacity-70 ';
-  }
+  switch (type) {
+    case 'default':
+      className =
+        'border-[1px] border-gray-300 rounded-sm disabled:opacity-70 ';
+      break;
 
-  if (type === 'primary') {
-    className =
-      'bg-[#335c9a] rounded-sm text-white hover:!text-white disabled:opacity-70';
+    case 'primary':
+      className =
+        'bg-[#335c9a] rounded-sm text-white hover:!text-white disabled:opacity-70';
+      break;
   }
 
   return (
@@ -31,7 +34,6 @@ const Button = ({
       onClick={onClick}
       disabled={disabled}
       className={className}
-
       // href='https://www.paypal.com/checkoutnow?token=1BY922753K601543D'
     >
       {label}

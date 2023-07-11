@@ -27,9 +27,9 @@ const Modal: FC<ModalProps> = ({
   searchable = false,
 }) => {
   const [query, setQuery] = useState<string>('');
-  
+
   const debounced = useDebouncedValue(query);
-  
+
   const dispatch = useDispatch();
 
   const hideModal = () => {
@@ -40,7 +40,7 @@ const Modal: FC<ModalProps> = ({
   const isModalOpen = useSelector(isModalOpened);
 
   const { data: modalData, isLoading } = useSWR(
-    isModalOpen ? cacheKey : null,
+    isModalOpen && cacheKey !== 'upgrade' ? cacheKey : null,
     fetchData
   );
 
@@ -57,6 +57,8 @@ const Modal: FC<ModalProps> = ({
   if (cacheKey?.includes('use')) {
     content = <LicenseManage data={modalData} query={debounced} />;
   }
+
+  console.log(cacheKey);
 
   if (cacheKey?.includes('upgrade')) {
     content = <LicenseUgrade />;
@@ -77,7 +79,7 @@ const Modal: FC<ModalProps> = ({
       width={width}
       closable={false}
       // destroyOnClose={true}
-      className='relative'
+      className="relative"
     >
       {searchable && (
         <Input
@@ -91,7 +93,6 @@ const Modal: FC<ModalProps> = ({
           addonAfter={null}
         />
       )}
-
 
       {isLoading ? <h1>Loading...</h1> : content}
       {/* {content} */}

@@ -10,6 +10,9 @@ import {
 const ModalTypes = () => {
   const typeOfModal = useSelector(modalType);
 
+  console.log(typeOfModal);
+  
+
   if (typeOfModal) {
     return (
       (typeOfModal === 'alert' && (
@@ -27,7 +30,8 @@ const ModalTypes = () => {
         />
       )) ||
       (typeOfModal === 'upgrade' && (
-        <Modal title="Upgrade your license" cacheKey={'upgrade'} />
+        <Modal title="License Upgrade
+        " cacheKey='upgrade' />
       ))
     );
   }

@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 const SmsContent = ({ data, query }: { data?: any; query: string }) => {
+  
   const filtered = useMemo(() => {
     return data?.filter((eachData: any) =>
       eachData.name.toLowerCase().includes(query?.toLowerCase())
