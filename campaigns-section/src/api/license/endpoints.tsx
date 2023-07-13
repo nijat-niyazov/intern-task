@@ -6,6 +6,7 @@ const paymentHistoryEndpoint = 'license/all-history/?page_size=10';
 const downloadInvoiceEndpoint = 'license/invoice/';
 const uploadPhotoEndpoint = 'auth/company-edit/';
 const deviceLicense = 'license/upgrade-license/add/?device_count=';
+const periodLicense = 'license/upgrade-license/extend/?period=';
 
 export {
   alertsEndPoint,
@@ -15,5 +16,5 @@ export {
   paymentHistoryEndpoint,
   smsPriceEndpoint,
   uploadPhotoEndpoint,
-  deviceLicense
+  deviceLicense,periodLicense
 };

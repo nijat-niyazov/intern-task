@@ -3,11 +3,15 @@ import { Modal as AntModal, Input } from 'antd';
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useSWR from 'swr';
+import { fetchData } from '~/api/license';
 import { handleShowModal, isModalOpened } from '~/redux/licenseModalSlice';
-import { fetchData } from '../../api';
-import { useDebouncedValue } from '../../customHooks';
-import { AlertContent, LicenseManage, SmsContent } from './modalContents';
-import LicenseUgrade from './modalContents/LicenseUpgrade';
+import { useDebouncedValue } from '../../../../../customHooks/license';
+import {
+  AlertContent,
+  LicenseManage,
+  LicenseUgrade,
+  SmsContent,
+} from './modalContents';
 
 interface ModalProps {
   title: string;
@@ -57,8 +61,6 @@ const Modal: FC<ModalProps> = ({
   if (cacheKey?.includes('use')) {
     content = <LicenseManage data={modalData} query={debounced} />;
   }
-
-  console.log(cacheKey);
 
   if (cacheKey?.includes('upgrade')) {
     content = <LicenseUgrade />;

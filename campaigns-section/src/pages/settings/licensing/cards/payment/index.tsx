@@ -2,11 +2,11 @@ import { Card, Table } from 'antd';
 import Column from 'antd/es/table/Column';
 import { memo } from 'react';
 import useSWR from 'swr';
-import { fetchData } from '../../api';
-import { paymentHistoryEndpoint } from '../../api/endpoints';
+import { fetchData } from '~/api/license';
+import { paymentHistoryEndpoint } from '~/api/license/endpoints';
+import { paymentHistoryColumns } from '../../../../../constants/license/constants';
 import CardHeader from '../../components/cardHeader';
-import { paymentHistoryColumns } from '../../constants/constants';
-import { PaymentDataType } from '../../interfaces/interfaces';
+import { PaymentDataType } from '../../../../../interfaces/license/interfaces';
 
 const Payment = () => {
   const { data } = useSWR<PaymentDataType[]>(paymentHistoryEndpoint, fetchData);

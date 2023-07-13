@@ -2,9 +2,9 @@ import { Form, Input } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
+import { updateAlert } from '~/api/license';
+import Button from '~/components/button';
 import { handleShowModal } from '~/redux/licenseModalSlice';
-import { updateAlert } from '../../../api';
-import Button from '../../button';
 
 const AlertContent = ({ data }: { data: any }) => {
   const [form] = useForm();

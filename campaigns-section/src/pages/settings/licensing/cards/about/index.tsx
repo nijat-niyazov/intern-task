@@ -1,9 +1,9 @@
 import { Card } from 'antd';
 import { memo, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { uploadImage } from '~/api/license';
+import { downloadPhoto } from '~/assets';
 import { IconOfAbout } from '~/assets/icons';
-import downloadPhoto from '../../../../../assets/photo.png';
-import { uploadImage } from '../../api';
 import CardHeader from '../../components/cardHeader';
 import List from '../../components/list/List';
 

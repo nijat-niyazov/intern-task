@@ -1,15 +1,14 @@
 import axios from 'axios';
-import { dateFormatter } from '../utils';
 import {
   alertsEndPoint,
   downloadInvoiceEndpoint,
   uploadPhotoEndpoint,
 } from './endpoints';
+import { dateFormatter } from '~/pages/settings/licensing/utils';
 
 export const userToken =
   'a4e98b9bfe5249fff6d00bd618b30fdd2d6d386dcee43c7abf9db088eda520de';
-// export const userToken =
-//   '575074ab26c424a556804b93fc6e90c6abfee6835df55bc77d75125609d492d2';
+
 const apiUrl = 'https://apinew.testqmeter.net/api/v1/';
 
 export const testUrl = axios.create({
@@ -53,24 +52,48 @@ export const testUrl = axios.create({
 //   }
 // };
 
+export const fetchData = async (cacheKey: string) => {
+  try {
+    const res = await testUrl.get(cacheKey);
+    if (res.status !== 200) throw new Error('went wrong');
+
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const fetchFilteredData = async (
   cacheKey: [string, { username?: string; name?: string; ids?: string[] }]
-  // ! first element is string, others are params with their params
+  // ! first element is string which is (endpoint), others are params with their types
 ) => {
   if (cacheKey && cacheKey.length === 2) {
     const endpoint = cacheKey[0];
+    const queriesObj = cacheKey[1];
 
-    const { username, name, ids } = cacheKey[1];
+    const params: { [key: string]: any } = {};
 
-    const params = {
-      username,
-      name,
-      ids,
-    };
+    console.log('queriesObj', queriesObj);
 
-    !username && delete params.username;
-    !name && delete params.name;
-    !ids && delete params.ids;
+    for (const key in queriesObj) {
+      const value = queriesObj?.[key as keyof typeof queriesObj];
+
+      if (queriesObj.hasOwnProperty(key) && value && value?.length !== 0) {
+        params[key] = value;
+      }
+    }
+
+    console.log(params);
+
+    // const params = {
+    //   username,
+    //   name,
+    //   ids,
+    // };
+
+    // !username && delete params.username;
+    // !name && delete params.name;
+    // !ids && delete params.ids;
 
     try {
       const res = await testUrl.get(endpoint, {
@@ -87,17 +110,6 @@ export const fetchFilteredData = async (
     } catch (err) {
       console.log(err);
     }
-  }
-};
-
-export const fetchData = async (cacheKey: string) => {
-  try {
-    const res = await testUrl.get(cacheKey);
-    if (res.status !== 200) throw new Error('went wrong');
-
-    return res.data;
-  } catch (err) {
-    console.log(err);
   }
 };
 

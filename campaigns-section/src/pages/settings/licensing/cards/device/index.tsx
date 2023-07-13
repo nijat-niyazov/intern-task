@@ -2,7 +2,7 @@ import { Card } from 'antd';
 import { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { handleModalType, handleShowModal } from '~/redux/licenseModalSlice';
-import Button from '../../components/button';
+import Button from '~/components/button';
 import CardHeader from '../../components/cardHeader';
 import List from '../../components/list/List';
 

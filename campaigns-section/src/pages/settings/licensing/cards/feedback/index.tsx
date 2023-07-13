@@ -2,7 +2,7 @@ import { Card, Select } from 'antd';
 import { IconOfPayPal } from '~/assets/icons';
 
 import { memo } from 'react';
-import Button from '../../components/button';
+import Button from '~/components/button';
 import CardHeader from '../../components/cardHeader';
 
 const WebFeedBack = ({ data }: { data: any }) => {

@@ -1,6 +1,7 @@
-import AlertContent from './Alert';
-import LicenseManage from './LicenseManage';
-import LicenseUpdate from './LicenseUpgrade';
-import SmsContent from './Sms';
+import AlertContent from "./alert";
+import LicenseManage from "./manage";
+import SmsContent from "./sms";
+import LicenseUgrade from "./upgrade";
 
-export { AlertContent, LicenseManage, LicenseUpdate, SmsContent };
+
+export { AlertContent, LicenseManage, LicenseUgrade, SmsContent };  

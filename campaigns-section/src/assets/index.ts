@@ -1,3 +1,5 @@
 import QmeterLogo from './QmeterLogo';
+import downloadPhoto from './photo.png';
 
-export { QmeterLogo };
+
+export { QmeterLogo,downloadPhoto };

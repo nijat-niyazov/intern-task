@@ -1,6 +1,10 @@
 import { DeviceType, FeedbackType, SmsType } from '~/assets/icons';
-import { handleDownloadPDF } from '../api';
-import { currencyFormatter, dateFormatter, nameFixer } from '../utils';
+import {
+  currencyFormatter,
+  dateFormatter,
+  nameFixer,
+} from '../../pages/settings/licensing/utils';
+import { handleDownloadPDF } from '~/api/license';
 
 const paymentHistoryColumns = [
   {
@@ -20,7 +24,6 @@ const paymentHistoryColumns = [
     key: 'extended',
     width: '8%',
     render: (currentData: string | null) => {
-
       return <span> {currentData == null ? 0 : currentData} month</span>;
     },
   },

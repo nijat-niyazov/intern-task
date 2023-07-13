@@ -1,7 +1,7 @@
 import { Card, Input } from 'antd';
 import { memo, useState } from 'react';
 import { IconOfPayPal, IconOfWarning } from '~/assets/icons';
-import Button from '../../components/button';
+import Button from '~/components/button';
 import CardHeader from '../../components/cardHeader';
 
 const SmsBalance = ({ data: balance }: { data: any }) => {

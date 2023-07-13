@@ -1,21 +1,18 @@
 import { RadioChangeEvent } from 'antd';
 import { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
-import useSWR from 'swr';
-import { selectedValue, value } from '~/redux/stepsSlice';
-import { fetchData } from '../../../api';
-import { deviceLicense } from '../../../api/endpoints';
-import Button from '../../button';
+import { value } from '~/redux/stepsSlice';
 import {
   AddExtend4,
   AddNew2,
   AddNew3,
   Extende2,
   Extende3,
+  UpgradeOptions,
   Web2,
   Web4,
 } from './steps';
-import UpgradeOptions from './steps/UpgradeOptions';
+import Button from '~/components/button';
 
 type Step = {
   header?: string;
@@ -30,7 +27,6 @@ const LicenseUgrade: FC = () => {
   const onChange = (e: RadioChangeEvent) => setSelected(e.target.value);
 
   const licenseValue = useSelector(value);
-  const selectedMonth = useSelector(selectedValue);
 
   const handleCurrentStep = (num: number) => setCurrentStep(p => p + num);
 
@@ -75,13 +71,6 @@ const LicenseUgrade: FC = () => {
 
   const stepsCount = activeSteps.length + 1;
   const isLastStep = activeSteps.length === currentStep;
-
-  // const { data: axrinciData } = useSWR(
-  //   isLastStep
-  //     ? (deviceLicense + (licenseValue > 0 && licenseValue)).toString() || selectedMonth
-  //     : null,
-  //   fetchData
-  // );
 
   return (
     <div className="p-5">

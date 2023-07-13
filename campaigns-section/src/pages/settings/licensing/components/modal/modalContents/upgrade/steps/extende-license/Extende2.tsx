@@ -4,7 +4,7 @@ import { handleSelected, selectedValue } from '~/redux/stepsSlice';
 
 const Extende2 = () => {
   const dispatch = useDispatch();
-  const selectedMonth = useSelector(selectedValue);
+  const selectedPeriod = useSelector(selectedValue);
 
   const onChange = (e: RadioChangeEvent) => {
     // setSelected(e.target.value);
@@ -13,7 +13,7 @@ const Extende2 = () => {
 
   return (
     <div>
-      <Radio.Group onChange={onChange} value={selectedValue}>
+      <Radio.Group onChange={onChange} value={selectedPeriod}>
         <Space direction="vertical">
           <Radio value={0}>1 months</Radio>
           <Radio value={4}>4 months</Radio>

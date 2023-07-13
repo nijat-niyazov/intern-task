@@ -1,7 +1,7 @@
 import { Toaster } from 'react-hot-toast';
 import useSWR from 'swr';
-import { fetchData } from './api';
-import { balanceEndpoint } from './api/endpoints';
+import { fetchData } from '~/api/license';
+import { balanceEndpoint } from '../../../api/license/endpoints';
 import {
   About,
   DeviceLicense,

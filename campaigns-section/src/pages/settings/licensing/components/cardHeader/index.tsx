@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import useHandleModal from '../../customHooks/useHandleModal';
+import { useHandleModal } from '~/customHooks/license';
 
 interface CardHeaderProps {
   title: string;
