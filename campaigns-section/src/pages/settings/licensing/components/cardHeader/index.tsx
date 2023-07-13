@@ -26,9 +26,9 @@ const CardHeader: FC<CardHeaderProps> = ({
 
   return (
     <header
-      style={{
-        border: !border && 'none',
-      }}
+      // style={{
+      //   border: !border && 'none',
+      // }}
       className="border-gray-200 flex items-center justify-between h-10 border-b-[1px] pb-2"
     >
       <h4 className="font-semibold text-sm  text-[#555]">
